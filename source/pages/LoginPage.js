@@ -6,10 +6,24 @@ import { Actions } from 'react-native-router-flux';
 import Form from '../components/Form';
 
 export default class LoginPage extends React.Component {
+    
+    signUpPage(){
+        Actions.signUpPage();
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <Form />
+                <View style={styles.formContainer}>
+                    <Form type='Login' />
+                </View>
+
+                <View style={styles.signUpContainer}>
+                    <Text style={styles.textStyle}>아직 계정이 없으신가요? </Text>
+                    <TouchableOpacity onPress={this.signUpPage}>
+                        <Text style={styles.buttonStyle}> 회원가입</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -17,9 +31,30 @@ export default class LoginPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#fff',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    formContainer: {
+        flex: 9,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    signUpContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 15,
+        flexDirection: 'row'
+    },
+    textStyle: {
+        color: '#6e6e6e'
+    },
+    buttonStyle: {
+        color: '#000',
+        fontWeight: '500'
+    },
+
 })

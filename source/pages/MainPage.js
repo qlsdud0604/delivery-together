@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import LoginPage from './LoginPage';
+import LoginRouter from '../components/LoginRouter';
 
 export default class MainPage extends React.Component {
 
@@ -29,7 +29,7 @@ export default class MainPage extends React.Component {
 
                 <View style={styles.viewContainer}>
                     {(this.state.mode === 1) && <Text>Map 페이지 입니다.</Text>}
-                    {(this.state.mode === 2) && <LoginPage/>}
+                    {(this.state.mode === 2) && <LoginRouter/>}
                 </View>
 
                 <View style={styles.buttonContainer}>
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     },
     viewContainer: {
         flex: 12,
-        alignItems: 'center',
-        justifyContent: 'center'
+        // alignItems: 'center',
+        // justifyContent: 'center'
     },
     buttonContainer: {
         flex: 1,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
     },
     textStyle: {
-        color: '#000000',
+        color: '#000',
         fontWeight: '400',
         fontSize: 15
     }

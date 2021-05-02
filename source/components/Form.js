@@ -14,7 +14,7 @@ export default class Form extends React.Component {
                     selectionColor="#6E6E6E"
                     secureTextEntry={true} />
                 <TouchableOpacity style={styles.buttonStyle}>
-                    <Text style={styles.textStyle}>Login</Text>
+                    <Text style={styles.textStyle}>{this.props.type}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
         borderRadius: 25
     },
     buttonStyle: {
-        backgroundColor: "#000000",
+        backgroundColor: "#000",
         width: 300,
         borderRadius: 25,
         marginVertical: 5,
         paddingVertical: 12
     },
     textStyle: {
-        color: "#FFFFFF",
+        color: "#fff",
         fontSize: 15,
         fontWeight: "500",
         textAlign: "center"
