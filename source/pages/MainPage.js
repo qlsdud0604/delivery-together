@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import LoginPage from './LoginPage';
+
 export default class MainPage extends React.Component {
 
     constructor(props) {
@@ -27,7 +29,7 @@ export default class MainPage extends React.Component {
 
                 <View style={styles.viewContainer}>
                     {(this.state.mode === 1) && <Text>Map 페이지 입니다.</Text>}
-                    {(this.state.mode === 2) && <Text>My 페이지 입니다.</Text>}
+                    {(this.state.mode === 2) && <LoginPage/>}
                 </View>
 
                 <View style={styles.buttonContainer}>
