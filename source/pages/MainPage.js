@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
 export default class MainPage extends React.Component {
 
     constructor(props) {
@@ -30,10 +32,12 @@ export default class MainPage extends React.Component {
 
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.mapPage.bind(this)}>
+                        <Icon name='ios-location-sharp' size={25} color='#000000' />
                         <Text style={styles.textStyle}>Map</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.myPage.bind(this)}>
+                        <Icon name="ios-person" size={25} color="#000000" />
                         <Text style={styles.textStyle}>My</Text>
                     </TouchableOpacity>
                 </View>
@@ -48,8 +52,8 @@ const styles = StyleSheet.create({
     },
     viewContainer: {
         flex: 12,
-        alignItems:'center',
-        justifyContent:'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     buttonContainer: {
         flex: 1,
@@ -69,6 +73,6 @@ const styles = StyleSheet.create({
     textStyle: {
         color: '#000000',
         fontWeight: '400',
-        fontSize: 30
+        fontSize: 15
     }
 });
