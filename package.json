@@ -18,7 +18,8 @@
     "react-native-router-flux": "^4.3.1",
     "react-native-screens": "^3.1.1",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "react-native-maps": "0.27.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import MapPage from './MapPage';
 import LoginRouter from '../components/LoginRouter';
 
 export default class MainPage extends React.Component {
@@ -28,7 +29,7 @@ export default class MainPage extends React.Component {
 
 
                 <View style={styles.viewContainer}>
-                    {(this.state.mode === 1) && <Text>Map 페이지 입니다.</Text>}
+                    {(this.state.mode === 1) && <MapPage/>}
                     {(this.state.mode === 2) && <LoginRouter/>}
                 </View>
 
@@ -53,9 +54,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     viewContainer: {
-        flex: 12,
-        // alignItems: 'center',
-        // justifyContent: 'center'
+        flex: 12
     },
     buttonContainer: {
         flex: 1,
