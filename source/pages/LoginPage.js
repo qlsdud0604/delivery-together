@@ -15,7 +15,7 @@ export default class LoginPage extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.formContainer}>
-                    <Form type='Login' />
+                    <Form type='로그인' />
                 </View>
 
                 <View style={styles.signUpContainer}>

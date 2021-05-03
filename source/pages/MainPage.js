@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import MapPage from './MapPage';
+import MatchingPage from './MatchingPage';
 import LoginRouter from '../components/LoginRouter';
 
 export default class MainPage extends React.Component {
@@ -19,8 +20,12 @@ export default class MainPage extends React.Component {
         this.setState({ mode: 1 });
     }
 
+    matchingPage() {
+        this.setState({ mode: 2 })
+    }
+
     myPage() {
-        this.setState({ mode: 2 });
+        this.setState({ mode: 3 });
     }
 
     render() {
@@ -29,19 +34,25 @@ export default class MainPage extends React.Component {
 
 
                 <View style={styles.viewContainer}>
-                    {(this.state.mode === 1) && <MapPage/>}
-                    {(this.state.mode === 2) && <LoginRouter/>}
+                    {(this.state.mode === 1) && <MapPage />}
+                    {(this.state.mode === 2) && <MatchingPage />}
+                    {(this.state.mode === 3) && <LoginRouter />}
                 </View>
 
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.mapPage.bind(this)}>
                         <Icon name='ios-location-sharp' size={25} color='#000000' />
-                        <Text style={styles.textStyle}>Map</Text>
+                        <Text style={styles.textStyle}>나의 주변</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.buttonStyle} onPress={this.matchingPage.bind(this)}>
+                        <Icon name='ios-add-circle' size={25} color='#000000' />
+                        <Text style={styles.textStyle}>매칭 등록</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.myPage.bind(this)}>
                         <Icon name="ios-person" size={25} color="#000000" />
-                        <Text style={styles.textStyle}>My</Text>
+                        <Text style={styles.textStyle}>마이페이지</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -74,6 +85,6 @@ const styles = StyleSheet.create({
     textStyle: {
         color: '#000',
         fontWeight: '400',
-        fontSize: 15
+        fontSize: 10
     }
 });
