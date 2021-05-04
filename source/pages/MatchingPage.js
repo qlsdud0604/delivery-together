@@ -12,11 +12,11 @@ export default class MatchingPage extends React.Component {
                         placeholder='제목'
                         selectionColor="#6E6E6E" />
                     <TouchableOpacity style={styles.inputStyle}>
-                        <View>
+                        <View style={{ flex: 1 }}>
                             <Text style={styles.textStyle}>카테고리 선택</Text>
                         </View>
-                        <View style={{justifyContent:'flex-end', alignItems:'flex-end'}}>
-                            <Icon name='ios-chevron-forward-outline' size={21} color='#000000'  />
+                        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                            <Icon name='ios-chevron-forward-outline' size={21} color='#000000' />
                         </View>
                     </TouchableOpacity>
                     <TextInput style={styles.inputStyle}
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         width: 350,
         borderBottomWidth: 1,
         fontSize: 18,
-        marginVertical: 15,
+        marginVertical: 10,
         paddingVertical: 10,
         paddingHorizontal: 5,
         flexDirection: 'row'
