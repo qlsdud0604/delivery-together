@@ -2,8 +2,14 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Actions } from 'react-native-router-flux';
 
 export default class MatchingPage extends React.Component {
+
+    categoryPage() {
+        Actions.categoryPage();
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -11,7 +17,7 @@ export default class MatchingPage extends React.Component {
                     <TextInput style={styles.inputStyle}
                         placeholder='제목'
                         selectionColor="#6E6E6E" />
-                    <TouchableOpacity style={styles.inputStyle}>
+                    <TouchableOpacity style={styles.inputStyle} onPress={this.categoryPage}>
                         <View style={{ flex: 1 }}>
                             <Text style={styles.textStyle}>카테고리 선택</Text>
                         </View>
@@ -36,6 +42,7 @@ export default class MatchingPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#fff',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'

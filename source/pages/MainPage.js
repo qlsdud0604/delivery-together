@@ -5,7 +5,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import MapPage from './MapPage';
 import MatchingPage from './MatchingPage';
+import MatchingRouter from '../components/MatchingRouter';
 import LoginRouter from '../components/LoginRouter';
+
 
 export default class MainPage extends React.Component {
 
@@ -35,7 +37,7 @@ export default class MainPage extends React.Component {
 
                 <View style={styles.viewContainer}>
                     {(this.state.mode === 1) && <MapPage />}
-                    {(this.state.mode === 2) && <MatchingPage />}
+                    {(this.state.mode === 2) && <MatchingRouter />}
                     {(this.state.mode === 3) && <LoginRouter />}
                 </View>
 

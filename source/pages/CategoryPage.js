@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 export default class CategoryPage extends React.Component {
     render() {
@@ -11,6 +11,7 @@ export default class CategoryPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#fff',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
