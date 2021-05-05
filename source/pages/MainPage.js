@@ -43,17 +43,20 @@ export default class MainPage extends React.Component {
 
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.mapPage.bind(this)}>
-                        <Icon name='ios-location-sharp' size={25} color='#000000' />
+                        {(this.state.mode === 1) && <Icon name='ios-location-sharp' size={25} color='#000000' />}
+                        {(this.state.mode != 1) && <Icon name='ios-location-outline' size={25} color='#000000' />}
                         <Text style={styles.textStyle}>나의 주변</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.matchingPage.bind(this)}>
-                        <Icon name='ios-add-circle' size={25} color='#000000' />
+                        {(this.state.mode === 2) && <Icon name='ios-add-circle' size={25} color='#000000' />}
+                        {(this.state.mode != 2) && <Icon name='ios-add-circle-outline' size={25} color='#000000' />}
                         <Text style={styles.textStyle}>매칭 등록</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.myPage.bind(this)}>
-                        <Icon name="ios-person" size={25} color="#000000" />
+                        {(this.state.mode === 3) && <Icon name="ios-person" size={25} color="#000000" />}
+                        {(this.state.mode != 3) && <Icon name="ios-person-outline" size={25} color="#000000" />}
                         <Text style={styles.textStyle}>마이페이지</Text>
                     </TouchableOpacity>
                 </View>
