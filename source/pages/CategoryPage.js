@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import { Actions } from 'react-native-router-flux';
+
+import GLOBAL from '../components/GlobalState';
 
 const category = [
     {
@@ -46,9 +49,15 @@ export default class CategoryPage extends React.Component {
         super(props);
 
         this.state = {
-            value: ''
+            value: GLOBAL.category
         }
+    }
 
+    matchingPage() {
+        GLOBAL.category = this.state.value;
+        GLOBAL.matchingPage.setState({ category: GLOBAL.category });
+
+        Actions.pop();
     }
 
     render() {
@@ -57,13 +66,20 @@ export default class CategoryPage extends React.Component {
                 <View style={{ flex: 9, justifyContent: 'center' }}>
                     <RadioButton.Group onValueChange={value => this.setState({ value })} value={this.state.value}>
                         {category.map((data, index) =>
-                            <RadioButton.Item key={index} style={styles.radioStyle} label={data.label} value={data.label} color='black' />
+                            <RadioButton.Item
+                                key={index}
+                                style={styles.radioStyle}
+                                label={data.label}
+                                value={data.label}
+                                color='black' />
                         )}
                     </RadioButton.Group>
                 </View>
 
                 <View style={{ flex: 1, alignItems: 'center' }}>
-                    <TouchableOpacity style={styles.buttonStyle}>
+                    <TouchableOpacity
+                        style={styles.buttonStyle}
+                        onPress={this.matchingPage.bind(this)}>
                         <Text style={styles.buttonTextStyle}>선택 완료</Text>
                     </TouchableOpacity>
                 </View>

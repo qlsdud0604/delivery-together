@@ -4,7 +4,6 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import MapPage from './MapPage';
-import MatchingPage from './MatchingPage';
 import MatchingRouter from '../components/MatchingRouter';
 import LoginRouter from '../components/LoginRouter';
 

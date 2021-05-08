@@ -9,7 +9,7 @@ export default class MatchingRouter extends React.Component {
         return (
             <Router>
                 <Stack key="root" hideNavBar={true} >
-                    <Scene key="mathcingPage" component={MatchingPage} initial={true} />
+                    <Scene key="matchingPage" component={MatchingPage} initial={true} />
                     <Scene key="categoryPage" component={CategoryPage} />
                 </Stack>
             </Router>
