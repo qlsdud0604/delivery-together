@@ -4,7 +4,8 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput, TouchableWithoutFe
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 
-import GLOBAL from '../components/GlobalState';
+import CATEGORY from '../components/Category';
+import LOCATIONS from '../components/Locations';
 
 const DissmissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -18,12 +19,14 @@ export default class MatchingPage extends React.Component {
         super(props);
 
         this.state = {
+            latitude: 35.8302367,   // 임의의 경도
+            longitude: 128.7509209,   // 임의의 위도
             title: '',
-            category: GLOBAL.category,
+            category: CATEGORY.category,
             money: '',
             content: ''
         }
-        GLOBAL.matchingPage = this;
+        CATEGORY.matchingPage = this;
     }
 
 
@@ -46,6 +49,8 @@ export default class MatchingPage extends React.Component {
     }
 
     submit() {
+        LOCATIONS.locations = LOCATIONS.locations.concat(this.state);
+        console.log(LOCATIONS.locations);
         this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
     }
 

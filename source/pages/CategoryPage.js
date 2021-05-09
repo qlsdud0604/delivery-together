@@ -3,9 +3,9 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 
-import GLOBAL from '../components/GlobalState';
+import CATEGORY from '../components/Category';
 
-const category = [
+const categories = [
     {
         label: '한식'
     },
@@ -49,13 +49,13 @@ export default class CategoryPage extends React.Component {
         super(props);
 
         this.state = {
-            value: GLOBAL.category
+            value: CATEGORY.category
         }
     }
 
     matchingPage() {
-        GLOBAL.category = this.state.value;
-        GLOBAL.matchingPage.setState({ category: GLOBAL.category });
+        CATEGORY.category = this.state.value;
+        CATEGORY.matchingPage.setState({ category: CATEGORY.category });
 
         Actions.pop();
     }
@@ -65,7 +65,7 @@ export default class CategoryPage extends React.Component {
             <View style={styles.container}>
                 <View style={{ flex: 9, justifyContent: 'center' }}>
                     <RadioButton.Group onValueChange={value => this.setState({ value })} value={this.state.value}>
-                        {category.map((data, index) =>
+                        {categories.map((data, index) =>
                             <RadioButton.Item
                                 key={index}
                                 style={styles.radioStyle}
