@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 
-import CATEGORY from '../components/Category';
+import INFO from '../components/MatchingInfo';
 
 const categories = [
     {
@@ -49,14 +49,14 @@ export default class CategoryPage extends React.Component {
         super(props);
 
         this.state = {
-            value: CATEGORY.category
+            value: INFO.category
         }
     }
 
     matchingPage() {
-        CATEGORY.category = this.state.value;
-        CATEGORY.matchingPage.setState({ category: CATEGORY.category });
-
+        INFO.category = this.state.value;
+        INFO.matchingPage.setState({ category: INFO.category });
+        
         Actions.pop();
     }
 

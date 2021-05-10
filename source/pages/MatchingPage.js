@@ -3,8 +3,9 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput, TouchableWithoutFe
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
+import * as Location from 'expo-location';
 
-import CATEGORY from '../components/Category';
+import INFO from '../components/MatchingInfo';
 import LOCATIONS from '../components/Locations';
 
 const DissmissKeyboard = ({ children }) => (
@@ -19,21 +20,41 @@ export default class MatchingPage extends React.Component {
         super(props);
 
         this.state = {
-            latitude: 35.8302367,   // 임의의 경도
-            longitude: 128.7509209,   // 임의의 위도
-            title: '',
-            category: CATEGORY.category,
-            money: '',
-            content: ''
-        }
-        CATEGORY.matchingPage = this;
+            latitude: null,
+            longitude: null,
+            title: INFO.title,
+            category: INFO.category,
+            money: INFO.money,
+            content: INFO.content
+        };
+        INFO.matchingPage = this;
     }
 
+    /* 사용자 현재 위치 정보 획득 함수 */
+    // async componentDidMount() {
 
+    //     const { status } = await Location.requestForegroundPermissionsAsync();
+
+    //     if (status !== 'granted') {
+    //         return;
+    //     }
+
+    //     let location = Location.getCurrentPositionAsync({});
+
+    //     this.setState({
+    //         ...this.state,
+    //         latitude: (await location).coords.latitude,
+    //         longitude: (await location).coords.longitude
+    //     });
+    //     console.log(this.state);
+    // }
+
+    /* CategoryPage 이동 함수 */
     categoryPage() {
         Actions.categoryPage();
     }
 
+    /* 양식 입력 확인 함수 */
     checkTextInput() {
         let state = this.state;
 
@@ -48,12 +69,19 @@ export default class MatchingPage extends React.Component {
                 ])
     }
 
+    /* 버튼 이벤트 정의 함수 */
     submit() {
         LOCATIONS.locations = LOCATIONS.locations.concat(this.state);
-        console.log(LOCATIONS.locations);
+        //console.log(LOCATIONS.locations);
+
+
         this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
     }
 
+    setTitle(value) {
+        INFO.title = value;
+        this.setState({ title: INFO.title });
+    }
 
     render() {
         return (
@@ -63,7 +91,7 @@ export default class MatchingPage extends React.Component {
                         <TextInput style={styles.inputStyle}
                             placeholder='제목'
                             selectionColor='#6E6E6E'
-                            onChangeText={(value) => this.setState({ title: value })}
+                            onChangeText={value => this.setTitle(value)}
                             value={this.state.title} />
                         <TouchableOpacity style={styles.inputStyle} onPress={this.categoryPage}>
                             <View style={{ flex: 1 }}>
@@ -77,13 +105,13 @@ export default class MatchingPage extends React.Component {
                             placeholder='최대 지불가격 (원)'
                             keyboardType='numeric'
                             selectionColor='#6E6E6E'
-                            onChangeText={(value) => this.setState({ money: value })}
+                            onChangeText={value => this.setState({ money: value })}
                             value={this.state.money} />
                         <TextInput style={styles.contentStyle}
                             placeholder='내용을 입력해주세요.'
                             selectionColor='#6E6E6E'
                             multiline={true}
-                            onChangeText={(value) => this.setState({ content: value })}
+                            onChangeText={value => this.setState({ content: value })}
                             value={this.state.content} />
                     </View>
                 </DissmissKeyboard>

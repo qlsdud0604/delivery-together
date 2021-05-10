@@ -1,20 +1,18 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+
 import { locations } from '../components/Locations';
+import CURRENTLOCATION from '../components/CurrentLocation';
 
 export default class MapPage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
-            <MapView
-                style={styles.container}
-                initialRegion={{
-                    latitude: 35.8318287,
-                    longitude: 128.7609706,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                }}>
+            <MapView style={styles.container}>
                 {
                     locations.map((marker, index) => (
                         <Marker

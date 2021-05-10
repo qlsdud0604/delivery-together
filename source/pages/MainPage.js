@@ -7,7 +7,6 @@ import MapPage from './MapPage';
 import MatchingRouter from '../components/MatchingRouter';
 import LoginRouter from '../components/LoginRouter';
 
-
 export default class MainPage extends React.Component {
 
     constructor(props) {
@@ -35,7 +34,7 @@ export default class MainPage extends React.Component {
 
 
                 <View style={styles.viewContainer}>
-                    {(this.state.mode === 1) && <MapPage />}
+                    {(this.state.mode === 1) && <MapPage /> }
                     {(this.state.mode === 2) && <MatchingRouter />}
                     {(this.state.mode === 3) && <LoginRouter />}
                 </View>
