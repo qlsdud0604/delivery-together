@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 
 import INFO from '../components/MatchingInfo';
+import LOCATIONS from '../components/Locations';
+
 
 /* 스크린 빈공간을 눌렀을 때 키보드 제거 함수 */
 const DissmissKeyboard = ({ children }) => (
@@ -19,6 +21,8 @@ export default class MatchingPage extends React.Component {
         super(props);
 
         this.state = {
+            latitude: INFO.latitude,
+            longitude: INFO.longitude,
             title: INFO.title,
             category: INFO.category,
             money: INFO.money,
@@ -49,14 +53,14 @@ export default class MatchingPage extends React.Component {
 
     /* 버튼 이벤트 정의 함수 */
     submit() {
-        this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
+        LOCATIONS.locations = LOCATIONS.locations.concat(this.state);
 
-        INFO.latitude = 35.8218196;
-        INFO.longitude = 128.7556213;
         INFO.title = '';
         INFO.category = '카테고리 선택';
         INFO.money = '';
         INFO.content = '';
+
+        this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
     }
 
     /* 양식 내용 유지 함수 */
