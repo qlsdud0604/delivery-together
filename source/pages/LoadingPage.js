@@ -14,6 +14,7 @@ export default class LoadingPage extends React.Component {
     }
 
     async componentDidMount() {
+        /* 사용자 위치 정보 획득 */
         try {
             const { status } = await Location.requestForegroundPermissionsAsync();
 

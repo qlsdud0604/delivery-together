@@ -3,10 +3,16 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput, TouchableWithoutFe
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
+import firebase from 'firebase';
 
 import INFO from '../components/MatchingInfo';
 import LOCATIONS from '../components/Locations';
+import firebaseConfig from '../config/FirebaseConfig';
 
+
+/* 파이어베이스 연결 */
+if (firebase.apps.length === 0)
+    firebase.initializeApp(firebaseConfig);
 
 /* 스크린 빈공간을 눌렀을 때 키보드 제거 함수 */
 const DissmissKeyboard = ({ children }) => (
@@ -54,6 +60,17 @@ export default class MatchingPage extends React.Component {
     /* 버튼 이벤트 정의 함수 */
     submit() {
         LOCATIONS.locations = LOCATIONS.locations.concat(this.state);
+
+        firebase.database().ref('1').set(
+            {
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                title: this.state.title,
+                category: this.state.category,
+                money: this.state.money,
+                content: this.state.content
+            }
+        )
 
         INFO.title = '';
         INFO.category = '카테고리 선택';
