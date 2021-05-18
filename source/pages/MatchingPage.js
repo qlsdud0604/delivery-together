@@ -6,9 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 
 import INFO from '../components/MatchingInfo';
-import LOCATIONS from '../components/Locations';
 import firebaseConfig from '../config/FirebaseConfig';
-
 
 /* 파이어베이스 연결 */
 if (firebase.apps.length === 0)
@@ -59,9 +57,19 @@ export default class MatchingPage extends React.Component {
 
     /* 버튼 이벤트 정의 함수 */
     submit() {
-        LOCATIONS.locations = LOCATIONS.locations.concat(this.state);
+        var number = 3;
 
-        firebase.database().ref('1').set(
+        /* 파이어베이스의 저장된 데이터의 갯수 확인 */
+        // var ref = firebase.database().ref('MatchingInfo/');
+        // ref.once('value').then(function (snapshot) {
+        //     var length = snapshot.numChildren();
+        //     number = number + length;
+        // })
+
+        // console.log(number);
+        
+        /* 파이어베이스에 사용자 정보 삽입 */
+        firebase.database().ref('MatchingInfo/' + number.toString()).set(
             {
                 latitude: this.state.latitude,
                 longitude: this.state.longitude,

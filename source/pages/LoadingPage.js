@@ -25,8 +25,6 @@ export default class LoadingPage extends React.Component {
 
             INFO.latitude = location.coords.latitude;
             INFO.longitude = location.coords.longitude;
-
-            console.log(INFO);
         } catch (error) {
             Alert.alert('오류');
 
