@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import MapPage from './MapPage';
+import MapRouter from '../components/MapRouter';
 import MatchingRouter from '../components/MatchingRouter';
 import LoginRouter from '../components/LoginRouter';
 
@@ -34,7 +34,7 @@ export default class MainPage extends React.Component {
 
 
                 <View style={styles.viewContainer}>
-                    {(this.state.mode === 1) && <MapPage /> }
+                    {(this.state.mode === 1) && <MapRouter /> }
                     {(this.state.mode === 2) && <MatchingRouter />}
                     {(this.state.mode === 3) && <LoginRouter />}
                 </View>

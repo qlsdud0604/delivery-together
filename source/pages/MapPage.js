@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 import firebaseConfig from '../config/FirebaseConfig';
 import INFO from '../components/MatchingInfo';
@@ -20,18 +21,21 @@ export default class MapPage extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         var query = firebase.database().ref('MatchingInfo').orderByKey();
-        
+
         query.on('value', (snapshot) => {
             const data = snapshot.val();
-            this.setState({markers:Object.values(data)});
+            this.setState({ markers: Object.values(data) });
         })
     }
 
-    render() {
-        
+    /* InfoPage 이동 함수 */
+    infoPage(title, category, money, content) {
+        Actions.infoPage({ title: title, category: category, money: money, content: content });
+    }
 
+    render() {
         return (
             <MapView
                 style={styles.container}
@@ -49,7 +53,7 @@ export default class MapPage extends React.Component {
                                 latitude: marker.latitude,
                                 longitude: marker.longitude
                             }}
-                            title={marker.title} >
+                            onPress={()=>this.infoPage(marker.title, marker.category, marker.money, marker.content)}>
                             <Image
                                 source={require('../Images/Marker.png')}
                                 style={{ width: 50, height: 50 }} />
