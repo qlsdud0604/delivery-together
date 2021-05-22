@@ -1,29 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import * as Google from 'expo-google-app-auth';
 
-import { Actions } from 'react-native-router-flux';
-
-import Form from '../components/Form';
 
 export default class LoginPage extends React.Component {
-    
-    signUpPage(){
-        Actions.signUpPage();
+
+    signInWithGoogleAsync = async () => {
+        try {
+            const result = await Google.logInAsync({
+                //androidClientId: YOUR_CLIENT_ID_HERE,
+                //behavior: 'web',
+                iosClientId: '874477126743-14qu6m36hc483urbpm6gonq558i1jep2.apps.googleusercontent.com',
+                scopes: ['profile', 'email'],
+            });
+
+            if (result.type === 'success') {
+                return result.accessToken;
+            } else {
+                return { cancelled: true };
+            }
+        } catch (e) {
+            return { error: true };
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.formContainer}>
-                    <Form type='로그인' />
-                </View>
-
-                <View style={styles.signUpContainer}>
-                    <Text style={styles.textStyle}>아직 계정이 없으신가요? </Text>
-                    <TouchableOpacity onPress={this.signUpPage}>
-                        <Text style={styles.buttonStyle}> 회원가입</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.signInWithGoogleAsync()}>
+                    <Text style={styles.textStyle}>Google 로그인</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -36,25 +42,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    formContainer: {
-        flex: 9,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    signUpContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 15,
-        flexDirection: 'row'
+    buttonStyle: {
+        backgroundColor: "#000",
+        width: 350,
+        borderRadius: 25,
+        marginVertical: 5,
+        paddingVertical: 12
     },
     textStyle: {
-        color: '#6e6e6e'
-    },
-    buttonStyle: {
-        color: '#000',
-        fontWeight: '500'
-    },
+        color: "#fff",
+        fontSize: 15,
+        fontWeight: "500",
+        textAlign: "center"
+    }
 
 })
