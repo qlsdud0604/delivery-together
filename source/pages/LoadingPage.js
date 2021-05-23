@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Alert } from 'react-native';
 import * as Location from 'expo-location';
 
-import INFO from '../components/MatchingInfo';
+import MATCHING_INFO from '../components/MatchingInfo';
 
 export default class LoadingPage extends React.Component {
     render() {
@@ -23,8 +23,8 @@ export default class LoadingPage extends React.Component {
 
             let location = await Location.getCurrentPositionAsync({});
 
-            INFO.latitude = location.coords.latitude;
-            INFO.longitude = location.coords.longitude;
+            MATCHING_INFO.latitude = location.coords.latitude;
+            MATCHING_INFO.longitude = location.coords.longitude;
         } catch (error) {
             Alert.alert('오류');
 

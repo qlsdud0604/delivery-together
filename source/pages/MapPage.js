@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
 import firebaseConfig from '../config/FirebaseConfig';
-import INFO from '../components/MatchingInfo';
+import MATCHING_INFO from '../components/MatchingInfo';
 
 /* 파이어베이스 연결 */
 if (firebase.apps.length === 0)
@@ -21,14 +21,14 @@ export default class MapPage extends React.Component {
         };
     }
 
-    componentDidMount() {
-        var query = firebase.database().ref('MatchingInfo').orderByKey();
+    // componentDidMount() {
+    //     var query = firebase.database().ref('MatchingInfo').orderByKey();
 
-        query.on('value', (snapshot) => {
-            const data = snapshot.val();
-            this.setState({ markers: Object.values(data) });
-        })
-    }
+    //     query.on('value', (snapshot) => {
+    //         const data = snapshot.val();
+    //         this.setState({ markers: Object.values(data) });
+    //     })
+    // }
 
     /* InfoPage 이동 함수 */
     infoPage(title, category, money, content) {
@@ -40,8 +40,8 @@ export default class MapPage extends React.Component {
             <MapView
                 style={styles.container}
                 initialRegion={{
-                    latitude: INFO.latitude,
-                    longitude: INFO.longitude,
+                    latitude: MATCHING_INFO.latitude,
+                    longitude: MATCHING_INFO.longitude,
                     latitudeDelta: 0.005,
                     longitudeDelta: 0.005
                 }}>

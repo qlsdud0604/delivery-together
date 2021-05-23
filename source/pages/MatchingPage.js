@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 
-import INFO from '../components/MatchingInfo';
+import MATCHING_INFO from '../components/MatchingInfo';
 import firebaseConfig from '../config/FirebaseConfig';
 
 /* 파이어베이스 연결 */
@@ -25,14 +25,14 @@ export default class MatchingPage extends React.Component {
         super(props);
 
         this.state = {
-            latitude: INFO.latitude,
-            longitude: INFO.longitude,
-            title: INFO.title,
-            category: INFO.category,
-            money: INFO.money,
-            content: INFO.content
+            latitude: MATCHING_INFO.latitude,
+            longitude: MATCHING_INFO.longitude,
+            title: MATCHING_INFO.title,
+            category: MATCHING_INFO.category,
+            money: MATCHING_INFO.money,
+            content: MATCHING_INFO.content
         };
-        INFO.matchingPage = this;
+        MATCHING_INFO.matchingPage = this;
     }
 
     /* CategoryPage 이동 함수 */
@@ -80,28 +80,28 @@ export default class MatchingPage extends React.Component {
             }
         )
 
-        INFO.title = '';
-        INFO.category = '카테고리 선택';
-        INFO.money = '';
-        INFO.content = '';
+        MATCHING_INFO.title = '';
+        MATCHING_INFO.category = '카테고리 선택';
+        MATCHING_INFO.money = '';
+        MATCHING_INFO.content = '';
 
         this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
     }
 
     /* 양식 내용 유지 함수 */
     setTitle(value) {
-        INFO.title = value;
-        this.setState({ title: INFO.title });
+        MATCHING_INFO.title = value;
+        this.setState({ title: MATCHING_INFO.title });
     }
 
     setMoney(value) {
-        INFO.money = value;
-        this.setState({ money: INFO.money });
+        MATCHING_INFO.money = value;
+        this.setState({ money: MATCHING_INFO.money });
     }
 
     setContent(value) {
-        INFO.content = value;
-        this.setState({ content: INFO.content });
+        MATCHING_INFO.content = value;
+        this.setState({ content: MATCHING_INFO.content });
     }
 
     render() {
