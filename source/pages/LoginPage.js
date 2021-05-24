@@ -59,8 +59,8 @@ export default class LoginPage extends React.Component {
     signInWithGoogleAsync = async () => {
         try {
             const result = await Google.logInAsync({
-                //androidClientId: YOUR_CLIENT_ID_HERE,
                 //behavior: 'web',
+                //androidClientId: YOUR_CLIENT_ID_HERE,
                 iosClientId: '173212582846-2rnqms8pv2ivvu4s7blq6jn00f6d2g17.apps.googleusercontent.com',
                 scopes: ['profile', 'email'],
             });

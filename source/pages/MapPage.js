@@ -21,14 +21,14 @@ export default class MapPage extends React.Component {
         };
     }
 
-    // componentDidMount() {
-    //     var query = firebase.database().ref('MatchingInfo').orderByKey();
+    componentDidMount() {
+        var query = firebase.database().ref('MatchingInfo').orderByKey();
 
-    //     query.on('value', (snapshot) => {
-    //         const data = snapshot.val();
-    //         this.setState({ markers: Object.values(data) });
-    //     })
-    // }
+        query.on('value', (snapshot) => {
+            const data = snapshot.val();
+            this.setState({ markers: Object.values(data) });
+        })
+    }
 
     /* InfoPage 이동 함수 */
     infoPage(title, category, money, content) {
