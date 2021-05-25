@@ -38,11 +38,11 @@ export default class LoginPage extends React.Component {
 
                 firebase.auth().signInWithCredential(credential).then(function (result) {
                     firebase.database().ref('UsersInfo/' + result.user.uid).set({
-                        gmail: result.user.email,
-                        profile_picture: result.user.photoURL,
-                        first_name: result.user.displayName,
+                        email: result.user.email,
+                        profileImage: result.user.photoURL,
+                        name: result.user.displayName,
                         phoneNumber: result.user.phoneNumber,
-                        created_at: Date.now()
+                        createdAt: Date.now()
 
                     })
                 }).catch(function (error) {
@@ -60,7 +60,7 @@ export default class LoginPage extends React.Component {
         try {
             const result = await Google.logInAsync({
                 //behavior: 'web',
-                //androidClientId: YOUR_CLIENT_ID_HERE,
+                androidClientId: '173212582846-agrook6pkl3144a383j2bt1sf2i2pfmp.apps.googleusercontent.com',
                 iosClientId: '173212582846-2rnqms8pv2ivvu4s7blq6jn00f6d2g17.apps.googleusercontent.com',
                 scopes: ['profile', 'email'],
             });
@@ -79,8 +79,20 @@ export default class LoginPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.signInWithGoogleAsync()}>
+                <TouchableOpacity style={styles.buttonStyle01} onPress={() => this.signInWithGoogleAsync()}>
                     <Text style={styles.textStyle}>Google 로그인</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.buttonStyle02} >
+                    <Text style={styles.textStyle}>Facebook 로그인</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.buttonStyle03} >
+                    <Text style={styles.textStyle}>Kakao 로그인</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.buttonStyle04} >
+                    <Text style={styles.textStyle}>Naver 로그인</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -94,8 +106,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    buttonStyle: {
+    buttonStyle01: {
         backgroundColor: "#000",
+        width: 350,
+        borderRadius: 25,
+        marginVertical: 5,
+        paddingVertical: 12
+    },
+    buttonStyle02: {
+        backgroundColor: "#3b5998",
+        width: 350,
+        borderRadius: 25,
+        marginVertical: 5,
+        paddingVertical: 12
+    },
+    buttonStyle03: {
+        backgroundColor: "#FEE500",
+        width: 350,
+        borderRadius: 25,
+        marginVertical: 5,
+        paddingVertical: 12
+    },
+    buttonStyle04: {
+        backgroundColor: "#2DB400",
         width: 350,
         borderRadius: 25,
         marginVertical: 5,

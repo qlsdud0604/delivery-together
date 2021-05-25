@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Avatar, Title, Caption } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 

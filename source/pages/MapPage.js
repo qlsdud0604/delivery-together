@@ -31,8 +31,8 @@ export default class MapPage extends React.Component {
     }
 
     /* InfoPage 이동 함수 */
-    infoPage(title, category, money, content) {
-        Actions.infoPage({ title: title, category: category, money: money, content: content });
+    infoPage(title, email, category, money, content) {
+        Actions.infoPage({ title: title, email: email, category: category, money: money, content: content });
     }
 
     render() {
@@ -53,10 +53,10 @@ export default class MapPage extends React.Component {
                                 latitude: marker.latitude,
                                 longitude: marker.longitude
                             }}
-                            onPress={()=>this.infoPage(marker.title, marker.category, marker.money, marker.content)}>
+                            onPress={() => this.infoPage(marker.title, marker.email, marker.category, marker.money, marker.content)}>
                             <Image
                                 source={require('../Images/Marker.png')}
-                                style={{ width: 50, height: 50 }} />
+                                style={{ width: 35, height: 35 }} />
                         </Marker>
                     ))
                 }

@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 
 import MATCHING_INFO from '../components/MatchingInfo';
+import USER_INFO from '../components/UserInfo';
 import firebaseConfig from '../config/FirebaseConfig';
 
 /* 파이어베이스 연결 */
@@ -44,7 +45,9 @@ export default class MatchingPage extends React.Component {
     checkTextInput() {
         let state = this.state;
 
-        if (state.title === '' || state.category === '카테고리 선택' || state.money === '' || state.content === '')
+        if (USER_INFO.isLoggedIn === false)
+            Alert.alert('로그인이 필요합니다.', '', [{ text: '확인', style: 'cancel', }]);
+        else if (state.title === '' || state.category === '카테고리 선택' || state.money === '' || state.content === '')
             Alert.alert('양식을 모두 입력해주세요.', '', [{ text: '확인', style: 'cancel', }]);
         else
             Alert.alert('매칭을 등록하시겠습니까?',
@@ -57,26 +60,18 @@ export default class MatchingPage extends React.Component {
 
     /* 버튼 이벤트 정의 함수 */
     submit() {
-        var number = 3;
+        var uid = USER_INFO.uid;
 
-        /* 파이어베이스의 저장된 데이터의 갯수 확인 */
-        // var ref = firebase.database().ref('MatchingInfo/');
-        // ref.once('value').then(function (snapshot) {
-        //     var length = snapshot.numChildren();
-        //     number = number + length;
-        // })
-
-        // console.log(number);
-        
         /* 파이어베이스에 사용자 정보 삽입 */
-        firebase.database().ref('MatchingInfo/' + number.toString()).set(
+        firebase.database().ref('MatchingInfo/' + uid).set(
             {
                 latitude: this.state.latitude,
                 longitude: this.state.longitude,
                 title: this.state.title,
                 category: this.state.category,
                 money: this.state.money,
-                content: this.state.content
+                content: this.state.content,
+                email: USER_INFO.email
             }
         )
 

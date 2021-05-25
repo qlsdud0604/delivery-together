@@ -1,24 +1,27 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, } from 'react-native';
+import { Title, Caption } from 'react-native-paper';
 
 export default class InfoPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ flex: 9, justifyContent: 'center' }}>
-                    <View style={styles.formStyle}>
-                        <Text style={{fontSize:18}}>제목 : {this.props.title}</Text>
-                    </View>
-                    <View style={styles.formStyle}>
-                        <Text style={{fontSize:18}}>카테고리 : {this.props.category}</Text>
-                    </View>
-                    <View style={styles.formStyle}>
-                        <Text style={{fontSize:18}}>최대 지불가격(원) : {this.props.money}</Text>
-                    </View>
-                    <View style={styles.contentStyle}>
-                        <Text style={{fontSize:18}}>내용 : {this.props.content}</Text>
+                {/* 제목, 카테고리, 가격 */}
+                <View style={styles.titleStyle}>
+                    <View style={{ alignItems: 'flex-start' }}>
+                        <Title style={{ fontSize: 18 }}>{this.props.title}</Title>
+                        <Caption style={{ fontSize: 13 }} >{this.props.email}</Caption>
+                        <Caption style={{ fontSize: 13 }} >카테고리 : {this.props.category}</Caption>
+                        <Caption style={{ fontSize: 13 }}>최대 지불가격 : {this.props.money}원</Caption>
                     </View>
                 </View>
+
+                {/* 내용 */}
+                <View style={styles.contentStyle}>
+                    <Text style={{fontSize:15}}>{this.props.content}</Text>
+                </View>
+
+                {/* 매칭 신청 버튼 */}
                 <View style={{ flex: 1 }}>
                     <TouchableOpacity style={styles.buttonStyle} >
                         <Text style={styles.buttonTextStyle}>매칭 신청</Text>
@@ -36,21 +39,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    formStyle: {
-        width: 350,
-        borderBottomWidth: 1,
-        marginVertical: 10,
-        paddingVertical: 10,
-        paddingHorizontal: 5,
-        flexDirection: 'row'
+    titleStyle: {
+        flex: 4.5,
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'flex-end',
+        paddingLeft: 20,
+        paddingBottom:20
     },
-    contentStyle: {
-        width: 350,
-        height: 150,
-        borderBottomWidth: 1,
-        marginVertical: 10,
-        paddingVertical: 10,
-        paddingHorizontal: 5
+    contentStyle:{
+        flex:4.5,
+        borderTopWidth:0.5,
+        borderColor:'#ddd',
+        width:'100%',
+        paddingLeft: 20,
+        paddingTop:20
+
     },
     buttonStyle: {
         backgroundColor: "#000",
