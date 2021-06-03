@@ -1,8 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, } from 'react-native';
 import { Title, Caption } from 'react-native-paper';
+import { Actions } from 'react-native-router-flux';
+
 
 export default class InfoPage extends React.Component {
+
+    /* ChatPage 이동 함수 */
+    chatPage() {
+        Actions.chatPage();
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -18,12 +26,12 @@ export default class InfoPage extends React.Component {
 
                 {/* 내용 */}
                 <View style={styles.contentStyle}>
-                    <Text style={{fontSize:15}}>{this.props.content}</Text>
+                    <Text style={{ fontSize: 15 }}>{this.props.content}</Text>
                 </View>
 
                 {/* 매칭 신청 버튼 */}
                 <View style={{ flex: 1 }}>
-                    <TouchableOpacity style={styles.buttonStyle} >
+                    <TouchableOpacity style={styles.buttonStyle} onPress={() => this.chatPage()}>
                         <Text style={styles.buttonTextStyle}>매칭 신청</Text>
                     </TouchableOpacity>
                 </View>
@@ -45,15 +53,15 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'flex-end',
         paddingLeft: 20,
-        paddingBottom:20
+        paddingBottom: 20
     },
-    contentStyle:{
-        flex:4.5,
-        borderTopWidth:0.5,
-        borderColor:'#ddd',
-        width:'100%',
+    contentStyle: {
+        flex: 4.5,
+        borderTopWidth: 0.5,
+        borderColor: '#ddd',
+        width: '100%',
         paddingLeft: 20,
-        paddingTop:20
+        paddingTop: 20
 
     },
     buttonStyle: {

@@ -57,7 +57,7 @@ export default class MyPage extends React.Component {
                         borderRightColor: '#ddd',
                         borderRightWidth: 1,
                     }]}>
-                        <Title>0.0 / 5</Title>
+                        <Title>4.7 / 5</Title>
                         <Caption>매너 점수</Caption>
                     </View>
                     <View style={styles.boxStyle}>
