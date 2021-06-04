@@ -1,14 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Title, Caption } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
+
+import USER_INFO from '../components/UserInfo';
 
 
 export default class InfoPage extends React.Component {
 
     /* ChatPage 이동 함수 */
     chatPage() {
-        Actions.chatPage();
+        if (USER_INFO.isLoggedIn === false)
+            Alert.alert('로그인이 필요합니다.', '', [{ text: '확인', style: 'cancel', }]);
+        else
+            Actions.chatPage();
     }
 
     render() {

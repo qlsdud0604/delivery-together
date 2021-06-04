@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Actions } from 'react-native-router-flux';
 
 import MapRouter from '../components/MapRouter';
 import MatchingRouter from '../components/MatchingRouter';
@@ -34,7 +35,7 @@ export default class MainPage extends React.Component {
 
 
                 <View style={styles.viewContainer}>
-                    {(this.state.mode === 1) && <MapRouter /> }
+                    {(this.state.mode === 1) && <MapRouter />}
                     {(this.state.mode === 2) && <MatchingRouter />}
                     {(this.state.mode === 3) && <LoginRouter />}
                 </View>
@@ -68,10 +69,10 @@ const styles = StyleSheet.create({
         flex: 1
     },
     viewContainer: {
-        flex: 12
+        flex: 1
     },
     buttonContainer: {
-        flex: 1,
+        flex: 0.085,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
