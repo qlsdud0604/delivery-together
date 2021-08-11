@@ -6,7 +6,6 @@ import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import firebaseConfig from '../config/FirebaseConfig';
 import firebase from 'firebase';
 import { db, auth } from '../config/FirebaseConfig';
-import { Actions } from 'react-native-router-flux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 

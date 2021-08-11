@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase';
@@ -110,7 +110,7 @@ export default class MainRouter extends React.Component {
                         </Scene>
 
                         {/* LoginPage -> MyPage */}
-                        <Scene key='myButton' title='마이페이지' hideNavBar={true} icon={this.tabIcon}>
+                        <Scene key='myButton' title='마이페이지' hideNavBar={true} icon={this.tabIcon} initial={true}>
                             <Scene key="root" hideNavBar={true} initial={!this.state.isLoggedIn} >
                                 <Scene key="loginPage" component={LoginPage} />
                             </Scene>

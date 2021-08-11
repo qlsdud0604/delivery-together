@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import LoadingPage from './pages/LoadingPage';
-import MainPage from './pages/MainPage';
 import MainRouter from './components/MainRouter';
 
 export default class Main extends React.Component {
@@ -13,7 +12,6 @@ export default class Main extends React.Component {
         return (
             <View style={styles.container}>
                 {(this.state.isLoading === true) && <LoadingPage />}
-                {/* {(this.state.isLoading !== true) && <MainPage />} */}
                 {(this.state.isLoading !== true) && <MainRouter />}
             </View>
 
