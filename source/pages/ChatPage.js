@@ -1,55 +1,71 @@
-import React, { useLayoutEffect, useCallback, useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
 import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
-
 import firebaseConfig from '../config/FirebaseConfig';
 import firebase from 'firebase';
-import { db, auth } from '../config/FirebaseConfig';
+import { auth } from '../config/FirebaseConfig';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
+/* 파이어베이스 연결 */
 if (firebase.apps.length === 0)
     firebase.initializeApp(firebaseConfig);
 
-const ChatPage = () => {
-    const [messages, setMessages] = useState([]);
+const database = firebase.database().ref("messages");
 
-    /* 메시지를 시간 순서대로 정렬 */
-    useLayoutEffect(() => {
-        const unsubscribe = db.collection('chats').
-            orderBy('createdAt', 'desc').onSnapshot
-            (snapshot => setMessages(
-                snapshot.docs.map(doc => ({
-                    _id: doc.data()._id,
-                    createdAt: doc.data().createdAt.toDate(),
-                    text: doc.data().text,
-                    user: doc.data().user
-                }))
-            ))
-        return unsubscribe;
-    }, [])
+export default class ChatPage extends React.Component {
 
-    /* 메시지 전송 버튼 클릭 시 동작 정의 메소드 */
-    const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-        const {
-            _id,
-            createdAt,
-            text,
-            user
-        } = messages[0]
+    constructor(props) {
+        super(props);
 
-        db.collection('chats').add({
-            _id,
-            createdAt,
-            text,
-            user
+        this.state = {
+            message: []
+        };
+    }
+
+    componentDidMount() {
+        this.loadMessage(message => {
+            this.setState(
+                previousState => ({
+                    messages: GiftedChat.append(previousState.messages, messages)
+                })
+            );
         })
-    }, [])
+    }
+
+    /* 메시지 로드 */
+    loadMessage(callback) {
+        firebase.database().ref('messages').off();
+
+        const onReceive = data => {
+            const message = data.val();
+
+            callback({
+                _id: data.key,
+                text: message.text,
+                createdAt: message.createdAt,
+                user: message.user
+            })
+        }
+
+
+    }
+
+    /* 메시지 전송 */
+    sendMessage(message = []) {
+        
+        let today = new Date();
+        let timestamp = today.toISOString();
+
+        firebase.database().ref('messages').push({
+            _id: message[0]._id,
+            createdAt: timestamp,
+            text: message[0].text,
+            user: message[0].user
+        })
+    }
 
     /* 말풍선 커스텀 */
-    const renderBubble = (props) => {
+    renderBubble = (props) => {
         return (
             <Bubble  {...props}
                 wrapperStyle={{
@@ -66,7 +82,7 @@ const ChatPage = () => {
     }
 
     /* 텍스트바 커스텀 */
-    const renderSend = (props) => {
+    renderSend = (props) => {
         return (
             <Send {...props}>
                 <View>
@@ -80,29 +96,29 @@ const ChatPage = () => {
         );
     }
 
-    return (
-        <View style={styles.container}>
-            <GiftedChat
-                style={styles.container}
-                messages={messages}
-                showAvatarForEveryMessage={true}
-                onSend={messages => onSend(messages)}
-                user={{
-                    _id: auth?.currentUser?.email,
-                    name: auth?.currentUser?.displayName,
-                    avatar: auth?.currentUser?.photoURL
-                }}
-                alwaysShowSend
-                renderBubble={renderBubble}
-                renderSend={renderSend}
-                placeholder='메시지를 입력해주세요.'
-            />
-        </View>
+    render() {
+        return (
+            <View style={styles.container}>
+                <GiftedChat
+                    style={styles.container}
+                    messages={this.state.messages}
+                    showAvatarForEveryMessage={true}
+                    onSend={message => this.sendMessage(message)}
+                    user={{
+                        _id: auth?.currentUser?.email,
+                        name: auth?.currentUser?.displayName,
+                        avatar: auth?.currentUser?.photoURL
+                    }}
+                    alwaysShowSend
+                    renderBubble={this.renderBubble}
+                    renderSend={this.renderSend}
+                    placeholder='메시지를 입력해주세요.'
+                />
+            </View>
 
-    )
-}
-
-export default ChatPage
+        )
+    }
+} ``
 
 const styles = StyleSheet.create({
     container: {
