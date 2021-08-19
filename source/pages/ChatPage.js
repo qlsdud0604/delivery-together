@@ -18,41 +18,27 @@ export default class ChatPage extends React.Component {
         super(props);
 
         this.state = {
-            message: []
+            messages: []
         };
     }
 
     componentDidMount() {
-        this.loadMessage(message => {
-            this.setState(
-                previousState => ({
-                    messages: GiftedChat.append(previousState.messages, messages)
-                })
-            );
-        })
+        this.loadMessages(message => {
+            this.setState(previousState => {
+                return {
+                    messages: GiftedChat.append(previousState.messages, message)
+                };
+            });
+        });
     }
 
-    /* 메시지 로드 */
-    loadMessage(callback) {
-        firebase.database().ref('messages').off();
-
-        const onReceive = data => {
-            const message = data.val();
-
-            callback({
-                _id: data.key,
-                text: message.text,
-                createdAt: message.createdAt,
-                user: message.user
-            })
-        }
-
-
+    componentWillUnmount() {
+        if (firebase.database().ref('messages'))
+            firebase.database().ref('messages').off();
     }
 
     /* 메시지 전송 */
     sendMessage(message = []) {
-        
         let today = new Date();
         let timestamp = today.toISOString();
 
@@ -62,6 +48,23 @@ export default class ChatPage extends React.Component {
             text: message[0].text,
             user: message[0].user
         })
+    }
+
+    /* 메시지 로드*/
+    loadMessages(callback) {
+        firebase.database().ref('messages').off();
+
+        const onReceive = data => {
+            const message = data.val();
+            callback({
+                _id: message._id,
+                createdAt: message.createdAt,
+                text: message.text,
+                user: message.user
+            });
+        };
+
+        firebase.database().ref('messages').orderByChild('createdAt').limitToLast(35).on('child_added', onReceive);
     }
 
     /* 말풍선 커스텀 */
