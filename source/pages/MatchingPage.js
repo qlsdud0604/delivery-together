@@ -71,7 +71,8 @@ export default class MatchingPage extends React.Component {
                 category: this.state.category,
                 money: this.state.money,
                 content: this.state.content,
-                email: USER_INFO.email
+                email: USER_INFO.email,
+                uid:uid
             }
         )
 

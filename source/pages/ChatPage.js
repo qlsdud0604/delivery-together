@@ -1,16 +1,18 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import firebaseConfig from '../config/FirebaseConfig';
 import firebase from 'firebase';
 import { auth } from '../config/FirebaseConfig';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import USER_INFO from '../components/UserInfo';
+
 
 /* 파이어베이스 연결 */
 if (firebase.apps.length === 0)
     firebase.initializeApp(firebaseConfig);
-
-const database = firebase.database().ref("messages");
 
 export default class ChatPage extends React.Component {
 
@@ -33,8 +35,8 @@ export default class ChatPage extends React.Component {
     }
 
     componentWillUnmount() {
-        if (firebase.database().ref('messages'))
-            firebase.database().ref('messages').off();
+        if (firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid))
+            firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).off();
     }
 
     /* 메시지 전송 */
@@ -42,7 +44,7 @@ export default class ChatPage extends React.Component {
         let today = new Date();
         let timestamp = today.toISOString();
 
-        firebase.database().ref('messages').push({
+        firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).push({
             _id: message[0]._id,
             createdAt: timestamp,
             text: message[0].text,
@@ -52,7 +54,7 @@ export default class ChatPage extends React.Component {
 
     /* 메시지 로드*/
     loadMessages(callback) {
-        firebase.database().ref('messages').off();
+        firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).off();
 
         const onReceive = data => {
             const message = data.val();
@@ -64,7 +66,7 @@ export default class ChatPage extends React.Component {
             });
         };
 
-        firebase.database().ref('messages').orderByChild('createdAt').limitToLast(35).on('child_added', onReceive);
+        firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).orderByChild('createdAt').limitToLast(35).on('child_added', onReceive);
     }
 
     /* 말풍선 커스텀 */
