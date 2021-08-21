@@ -4,6 +4,7 @@ import { Avatar, Title, Caption } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 import firebaseConfig from '../config/FirebaseConfig';
 import USER_INFO from '../components/UserInfo';
 
@@ -19,15 +20,30 @@ export default class MyPage extends React.Component {
         this.state = {
             name: USER_INFO.name,
             email: USER_INFO.email,
-            photoUrl: USER_INFO.photoURL,
+            photoURL: USER_INFO.photoURL,
             phoneNumber: USER_INFO.phoneNumber
         }
+    }
+
+    componentDidMount() {
+        var query = firebase.database().ref('UsersInfo').orderByKey();
+
+        query.on('value', (snapshot) => {
+            const data = snapshot.val();
+            this.setState({ name: data[USER_INFO.uid].name });
+            this.setState({ photoURL: data[USER_INFO.uid].profileImage });
+        })
     }
 
     /* 로그아웃 함수 */
     logout() {
         USER_INFO.isLoggedIn = false;
         firebase.auth().signOut();
+    }
+
+    /* 프로필 수정 페이지 이동 */
+    editProfilePage() {
+        Actions.editProfilePage();
     }
 
     render() {
@@ -38,7 +54,7 @@ export default class MyPage extends React.Component {
                 <View style={styles.userInfoStyle}>
                     <View style={{ flexDirection: 'row', marginTop: 15 }}>
                         <Avatar.Image
-                            source={{ uri: this.state.url }}
+                            source={{ uri: this.state.photoURL }}
                             size={70} />
                         <View style={{ marginLeft: 20, justifyContent: 'center' }}>
                             <Title style={[styles.nameStyle,
@@ -83,7 +99,7 @@ export default class MyPage extends React.Component {
                             <Text style={styles.menuTextStyle}>등록 게시물</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={this.editProfilePage}>
                         <View style={styles.menuItemStyle}>
                             <Icon name='ios-person-circle' size={22} color='#000' />
                             <Text style={styles.menuTextStyle}>프로필 수정</Text>

@@ -15,6 +15,7 @@ import CategoryPage from '../pages/CategoryPage';
 
 import LoginPage from '../pages/LoginPage';
 import MyPage from '../pages/MyPage';
+import EditProfilePage from '../pages/EditProfilePage';
 import USER_INFO from '../components/UserInfo';
 
 if (firebase.apps.length === 0) {
@@ -117,6 +118,7 @@ export default class MainRouter extends React.Component {
 
                             <Scene key="app" hideNavBar={true} initial={this.state.isLoggedIn}>
                                 <Scene key="myPage" component={MyPage} />
+                                <Scene key="editProfilePage" component={EditProfilePage}/>
                             </Scene>
                         </Scene>
                     </Scene>

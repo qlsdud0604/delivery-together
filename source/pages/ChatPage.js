@@ -20,7 +20,9 @@ export default class ChatPage extends React.Component {
         super(props);
 
         this.state = {
-            messages: []
+            messages: [],
+            name:'',
+            photoURL:''
         };
     }
 
@@ -32,6 +34,14 @@ export default class ChatPage extends React.Component {
                 };
             });
         });
+
+        var query = firebase.database().ref('UsersInfo').orderByKey();
+
+        query.on('value', (snapshot) => {
+            const data = snapshot.val();
+            this.setState({ name: data[USER_INFO.uid].name });
+            this.setState({ photoURL: data[USER_INFO.uid].profileImage });
+        })
     }
 
     componentWillUnmount() {
@@ -110,9 +120,9 @@ export default class ChatPage extends React.Component {
                     showAvatarForEveryMessage={true}
                     onSend={message => this.sendMessage(message)}
                     user={{
-                        _id: auth?.currentUser?.email,
-                        name: auth?.currentUser?.displayName,
-                        avatar: auth?.currentUser?.photoURL
+                        _id: USER_INFO.uid,
+                        name: this.state.name,
+                        avatar: this.state.photoURL
                     }}
                     alwaysShowSend
                     renderBubble={this.renderBubble}
