@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, ImageBackground, TextInput, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ImageBackground, TextInput, TouchableWithoutFeedback, Text, Keyboard, SafeAreaView } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import USER_INFO from "../components/UserInfo";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -14,12 +13,18 @@ import firebase from "firebase";
 if (firebase.apps.length === 0)
     firebase.initializeApp(firebaseConfig);
 
+/* 스크린 빈공간을 눌렀을 때 키보드 제거 함수 */
+const DissmissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+);
+
 export default class EditProfilePage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            text: '',
             inputText: '',
 
             name: USER_INFO.name,
@@ -54,7 +59,6 @@ export default class EditProfilePage extends React.Component {
 
             }
         )
-
         Actions.pop();
     }
 
@@ -74,9 +78,9 @@ export default class EditProfilePage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>{'\n\n'}</Text>
-                <View style={{ margin: 20 }}>
-                    <View style={{ alignItems: 'center' }}>
+                <DissmissKeyboard>
+                    {/* 사진 변경창 */}
+                    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 9 }}>
                         <TouchableOpacity onPress={this.pickImage}>
                             <View style={{
                                 height: 100,
@@ -106,55 +110,32 @@ export default class EditProfilePage extends React.Component {
                                     </View>
                                 </ImageBackground>
                             </View>
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ marginTop: 10, fontSize: 13, color: '#6E6E6E' }}>프로필 사진 변경</Text>
+                            </View>
                         </TouchableOpacity>
-                        <Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>{this.state.name}</Text>
-                    </View>
 
-                    <View>
-                        <View style={styles.action}>
-                            <FontAwesome name="user-o" size={20} />
-                            <TextInput
-                                placeholder="  닉네임"
-                                placeholderTextColor="#666666"
-                                autoCorrect={false}
-                                style={styles.textInput}
-                                onChangeText={(text) => { this.setState({ inputText: text }) }}
-                            />
+                        {/* 닉네임 입력창 */}
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={styles.inputStyle}>
+                                <TextInput style={styles.inputTextStyle}
+                                    placeholder=" 변경할 이름을 입력해 주세요."
+                                    placeholderTextColor="#6E6E6E"
+                                    autoCorrect={false}
+                                    selectionColor='#6E6E6E'
+                                    onChangeText={value => { this.setState({ inputText: value }) }} />
+                            </View>
                         </View>
-
-                        {/*추가적으로 바꿀 내용이 생길수도 있을 가능성을 염두하여 남겨두었다.*/}
-                        {/*<View style={styles.action}>*/}
-                        {/*    <FontAwesome name="phone" size={20}/>*/}
-                        {/*    <TextInput*/}
-                        {/*        placeholder="  Phone"*/}
-                        {/*        placeholderTextColor="#666666"*/}
-                        {/*        autoCorrect={false}*/}
-                        {/*        style={styles.textInput}*/}
-                        {/*    />*/}
-                        {/*</View>*/}
-
-                        {/*<View style={styles.action}>*/}
-                        {/*    <FontAwesome name="envelope-o" size={20}/>*/}
-                        {/*    <TextInput*/}
-                        {/*        placeholder="  Email"*/}
-                        {/*        placeholderTextColor="#666666"*/}
-                        {/*        autoCorrect={false}*/}
-                        {/*        style={styles.textInput}*/}
-                        {/*    />*/}
-                        {/*</View>*/}
                     </View>
+                </DissmissKeyboard>
 
-                    <View>
-                        <TouchableOpacity style={styles.commandButton} onPress={this.editPofile.bind(this)}>
-                            <Text style={styles.panelButtonTitle}>수정</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.commandButton} onPress={this.myPage.bind(this)}>
-                            <Text style={styles.panelButtonTitle}>취소</Text>
-                        </TouchableOpacity>
-                    </View>
+                {/* 수정 버튼 */}
+                <View style={{ flex: 1 }}>
+                    <TouchableOpacity style={styles.buttonStyle} onPress={this.editPofile.bind(this)}>
+                        <Text style={styles.textStyle}>수정</Text>
+                    </TouchableOpacity>
                 </View>
-            </View>
+            </View >
         )
     }
 
@@ -162,91 +143,36 @@ export default class EditProfilePage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#fff',
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    textInput: {
-        flex: 1,
+    inputTextStyle: {
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingTop: 10,
-        paddingLeft: 20,
-        color: '#05375a'
-    },
-    actionError: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#FF0000',
-        paddingBottom: 5,
-    },
-    action: {
-        flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f2f2f2',
-        paddingBottom: 5,
-    },
-    panelButtonTitle: {
         fontSize: 17,
-        fontWeight: 'bold',
-        color: 'white',
+        color: '#000'
     },
-    panelButton: {
-        padding: 13,
-        borderRadius: 10,
-        backgroundColor: '#FF6347',
-        alignItems: 'center',
-        marginVertical: 7,
+    inputStyle: {
+        width: 350,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#000',
+        marginVertical: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 5
     },
-    panelSubtitle: {
-        fontSize: 14,
-        color: 'gray',
-        height: 30,
-        marginBottom: 10,
+    buttonStyle: {
+        backgroundColor: "#000",
+        width: 350,
+        borderRadius: 25,
+        marginVertical: 5,
+        paddingVertical: 12
     },
-    panelTitle: {
-        fontSize: 27,
-        height: 35,
-    },
-    panelHandle: {
-        width: 40,
-        height: 8,
-        borderRadius: 4,
-        backgroundColor: '#00000040',
-        marginBottom: 10,
-    },
-    panelHeader: {
-        alignItems: 'center',
-    },
-    header: {
-        backgroundColor: '#FFFFFF',
-        shadowColor: '#333333',
-        shadowOffset: { width: -1, height: -3 },
-        shadowRadius: 2,
-        shadowOpacity: 0.4,
-        paddingTop: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-    },
-    commandButton: {
-        padding: 15,
-        borderRadius: 10,
-        backgroundColor: '#FF6347',
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    panel: {
-        padding: 20,
-        backgroundColor: '#FFFFFF',
-        paddingTop: 20,
-    },
-
-    aaa: {
-        flex: 1
-    },
-
-    bbb: {
-        flex: 2
+    textStyle: {
+        color: "#fff",
+        fontSize: 15,
+        fontWeight: "500",
+        textAlign: "center"
     }
-
 });

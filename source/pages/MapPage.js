@@ -32,7 +32,7 @@ export default class MapPage extends React.Component {
 
     /* InfoPage 이동 함수 */
     infoPage(title, email, category, money, content, uid) {
-        Actions.infoPage({ title: title, email: email, category: category, money: money, content: content, uid: uid });
+        Actions.infoPage({ postTitle: title, postEmail: email, postCategory: category, postMoney: money, postContent: content, uid: uid, title: '매칭 상대 확인'});
     }
 
     render() {

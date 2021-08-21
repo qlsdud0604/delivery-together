@@ -11,9 +11,9 @@ export default class InfoPage extends React.Component {
     /* ChatPage 이동 함수 */
     chatPage() {
         if (USER_INFO.isLoggedIn === false)
-            Alert.alert('로그인이 필요합니다.', '', [{ text: '확인', style: 'cancel', }]);
+            Alert.alert('로그인이 필요합니다.', '', [{ text: '확인', style: 'cancel' }]);
         else
-            Actions.chatPage({ uid: this.props.uid });
+            Actions.chatPage({ uid: this.props.uid, title: '💬' });
     }
 
     render() {
@@ -22,10 +22,10 @@ export default class InfoPage extends React.Component {
                 {/* 제목, 카테고리, 가격 */}
                 <View style={styles.titleStyle}>
                     <View style={{ alignItems: 'flex-start' }}>
-                        <Title style={{ fontSize: 18 }}>{this.props.title}</Title>
-                        <Caption style={{ fontSize: 13 }} >{this.props.email}</Caption>
-                        <Caption style={{ fontSize: 13 }} >카테고리 : {this.props.category}</Caption>
-                        <Caption style={{ fontSize: 13 }}>최대 지불가격 : {this.props.money}원</Caption>
+                        <Title style={{ fontSize: 18 }}>{this.props.postTitle}</Title>
+                        <Caption style={{ fontSize: 13 }} >{this.props.postEmail}</Caption>
+                        <Caption style={{ fontSize: 13 }} >카테고리 : {this.props.postCategory}</Caption>
+                        <Caption style={{ fontSize: 13 }}>최대 지불가격 : {this.props.postMoney}원</Caption>
                     </View>
                 </View>
 
