@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';

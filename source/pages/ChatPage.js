@@ -5,7 +5,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import firebaseConfig from '../config/FirebaseConfig';
 import firebase from 'firebase';
-import { auth } from '../config/FirebaseConfig';
 
 import USER_INFO from '../components/UserInfo';
 
@@ -45,8 +44,8 @@ export default class ChatPage extends React.Component {
     }
 
     componentWillUnmount() {
-        if (firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid))
-            firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).off();
+        if (firebase.database().ref('Messages/' + this.props.uid + USER_INFO.uid))
+            firebase.database().ref('Messages/' + this.props.uid + USER_INFO.uid).off();
     }
 
     /* 메시지 전송 */
@@ -54,7 +53,7 @@ export default class ChatPage extends React.Component {
         let today = new Date();
         let timestamp = today.toISOString();
 
-        firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).push({
+        firebase.database().ref('Messages/' + this.props.uid + USER_INFO.uid).push({
             _id: message[0]._id,
             createdAt: timestamp,
             text: message[0].text,
@@ -64,7 +63,7 @@ export default class ChatPage extends React.Component {
 
     /* 메시지 로드*/
     loadMessages(callback) {
-        firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).off();
+        firebase.database().ref('Messages/' + this.props.uid + USER_INFO.uid).off();
 
         const onReceive = data => {
             const message = data.val();
@@ -76,7 +75,7 @@ export default class ChatPage extends React.Component {
             });
         };
 
-        firebase.database().ref('messages/' + this.props.uid + USER_INFO.uid).orderByChild('createdAt').limitToLast(35).on('child_added', onReceive);
+        firebase.database().ref('Messages/' + this.props.uid + USER_INFO.uid).orderByChild('createdAt').limitToLast(35).on('child_added', onReceive);
     }
 
     /* 말풍선 커스텀 */

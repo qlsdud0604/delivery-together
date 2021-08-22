@@ -31,7 +31,7 @@ export default class InfoPage extends React.Component {
 
                 {/* 내용 */}
                 <View style={styles.contentStyle}>
-                    <Text style={{ fontSize: 15 }}>{this.props.content}</Text>
+                    <Text style={{ fontSize: 15 }}>{this.props.postContent}</Text>
                 </View>
 
                 {/* 매칭 신청 버튼 */}

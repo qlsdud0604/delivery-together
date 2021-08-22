@@ -46,6 +46,11 @@ export default class MyPage extends React.Component {
         Actions.editProfilePage();
     }
 
+    /* 매칭 완료 리스트 페이지 이동 */
+    completedListPage() {
+        Actions.completedListPage();
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -76,10 +81,10 @@ export default class MyPage extends React.Component {
                         <Title>0.0 / 5</Title>
                         <Caption>매너 점수</Caption>
                     </View>
-                    <View style={styles.boxStyle}>
+                    <TouchableOpacity style={styles.boxStyle} onPress={this.completedListPage}>
                         <Title>0</Title>
-                        <Caption>성사된 거래</Caption>
-                    </View>
+                        <Caption>성사된 매칭</Caption>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={{ flex: 0.1 }}></View>
@@ -93,10 +98,10 @@ export default class MyPage extends React.Component {
                             <Text style={styles.menuTextStyle}>채팅 목록</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity >
+                    <TouchableOpacity>
                         <View style={styles.menuItemStyle}>
                             <Icon name='ios-document' size={22} color='#000' />
-                            <Text style={styles.menuTextStyle}>등록 게시물</Text>
+                            <Text style={styles.menuTextStyle}>현재 등록 게시물</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.editProfilePage}>
