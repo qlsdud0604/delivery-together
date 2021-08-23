@@ -16,17 +16,18 @@ if (firebase.apps.length === 0)
 export default function CompletedItem({ data }) {
     return (
         <View style={styles.itemStyle}>
-            {/*사용자의 별점에 따라 사진을 다르게 표시해주는 부분 삼항연산자를 사용하였다.*/}
-            {/* {data[2] === 1 ?
-                    <Image source={require('../Images/1star.png')}  style={{width:60, height:60,borderRadius:30,marginTop:20,marginRight:20}} />:data[2] === 2 ?
-                    <Image source={require('../Images/2star.png')}  style={{width:60, height:60,borderRadius:30,marginTop:20,marginRight:20}} />:data[2] === 3 ?
-                    <Image source={require('../Images/3star.png')}  style={{width:60, height:60,borderRadius:30,marginTop:20,marginRight:20}} />:data[2] === 4 ?
-                    <Image source={require('../Images/4star.png')}  style={{width:60, height:60,borderRadius:30,marginTop:20,marginRight:20}} />:
-                    <Image source={require('../Images/5star.png')}  style={{width:60, height:60,borderRadius:30,marginTop:20,marginRight:20}} />
-                } */}
+
+            <View style={{ justifyContent: 'center' }}>
+                {data[2] === 1 ? <Image source={require('../Images/1점.png')} style={{ width: 40, height: 40, marginRight: 15 }} /> :
+                    data[2] === 2 ? <Image source={require('../Images/2점.png')} style={{ width: 40, height: 40, marginRight: 15 }} /> :
+                        data[2] === 3 ? <Image source={require('../Images/3점.png')} style={{ width: 40, height: 40, marginRight: 15 }} /> :
+                            data[2] === 4 ? <Image source={require('../Images/4점.png')} style={{ width: 40, height: 40, marginRight: 15 }} /> :
+                                <Image source={require('../Images/5점.png')} style={{ width: 40, height: 40, marginRight: 15 }} />}
+            </View>
+
             <View style={{ justifyContent: 'center', flex: 1 }}>
-                <Title style={{ fontSize: 18 }}>{data[0]}</Title>
-                <Caption style={{ fontSize: 13 }} >카테고리 : {data[1]}</Caption>
+                <Title style={{ fontSize: 15 }}>{data[0]}</Title>
+                <Caption style={{ fontSize: 12 }} >카테고리 : {data[1]}</Caption>
             </View>
             <View style={{ alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
                 <Text style={{ color: 'green' }}>{calDay(data[3])}</Text>
@@ -52,16 +53,16 @@ function calDay(num) {
 
 const styles = StyleSheet.create({
     itemStyle: {
-        flex:1,
+        flex: 1,
         flexDirection: 'row',
         backgroundColor: 'white',
-        marginTop:10,
+        marginTop: 10,
 
-        padding:10,
+        padding: 10,
         height: 100,
         width: 400,
-        borderWidth:0.5,
-        borderRadius:10
+        borderWidth: 0.5,
+        borderRadius: 10
     }
 });
 

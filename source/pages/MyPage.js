@@ -132,20 +132,20 @@ const styles = StyleSheet.create({
     },
     userInfoStyle: {
         paddingHorizontal: 30,
-        marginBottom: 25,
+        marginBottom: 25
     },
     nameStyle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     },
     emailStyle: {
         fontSize: 15,
         lineHeight: 15,
-        fontWeight: '500',
+        fontWeight: '500'
     },
     row: {
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: 10
     },
     boxWrapperStyle: {
         borderBottomColor: '#ddd',
@@ -153,12 +153,12 @@ const styles = StyleSheet.create({
         borderTopColor: '#ddd',
         borderTopWidth: 1,
         flexDirection: 'row',
-        height: 100,
+        height: 100
     },
     boxStyle: {
         width: '50%',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     menuStyle: {
         marginTop: 10,
@@ -166,13 +166,13 @@ const styles = StyleSheet.create({
     menuItemStyle: {
         flexDirection: 'row',
         paddingVertical: 15,
-        paddingHorizontal: 30,
+        paddingHorizontal: 30
     },
     menuTextStyle: {
         color: '#000',
         marginLeft: 20,
         fontWeight: '500',
         fontSize: 15,
-        lineHeight: 25,
+        lineHeight: 25
     }
 });

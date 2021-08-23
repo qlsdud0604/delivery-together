@@ -13,7 +13,7 @@ export default class InfoPage extends React.Component {
         if (USER_INFO.isLoggedIn === false)
             Alert.alert('로그인이 필요합니다.', '', [{ text: '확인', style: 'cancel' }]);
         else
-            Actions.chatPage({ uid: this.props.uid, title: '💬' });
+            Actions.chatPage({ uid: this.props.uid, title: '채팅' });
     }
 
     render() {

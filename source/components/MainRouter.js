@@ -1,6 +1,6 @@
 import React from 'react';
-import { Router, Scene } from 'react-native-router-flux';
-import { View, Text } from 'react-native';
+import { Actions, Router, Scene } from 'react-native-router-flux';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase';
@@ -78,12 +78,25 @@ export default class MainRouter extends React.Component {
             case '마이페이지':
                 return (
                     <View style={{ alignItems: 'center' }}>
-                        {focused && <Icon name="ios-person" size={25} color="#000" />}
-                        {!focused && <Icon name="ios-person-outline" size={25} color="#000" />}
+                        {focused && <Icon name='ios-person' size={25} color='#000' />}
+                        {!focused && <Icon name='ios-person-outline' size={25} color='#000' />}
                         <Text style={{ fontSize: 10 }}>마이페이지</Text>
                     </View>)
         }
     }
+
+    /* 뒤로가기 버튼 커스텀 */
+    renderBackButton() {
+        return (
+            <TouchableOpacity
+                onPress={() => Actions.pop()}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text> </Text>
+                    <Icon name='ios-arrow-back' size={30} color='#000' />
+                </View>
+            </TouchableOpacity>
+        );
+    };
 
 
 
@@ -95,20 +108,20 @@ export default class MainRouter extends React.Component {
                         key='tabbar'
                         tabs={true}
                         showLabel={false}
-                        tabBarStyle={{ backgroundColor: '#fff' }}
+                        tabBarStyle={{ backgroundColor: '#fff', height: 50 }}
                         hideNavBar={true}>
 
                         {/* MapPage -> InfoPage -> ChatPage */}
                         <Scene key='mapButton' title='나의 주변' hideNavBar={true} icon={this.tabIcon}>
                             <Scene key='mapPage' component={MapPage} />
-                            <Scene key='infoPage' hideNavBar={false} back={true} tintColor='black' backTitleEnable={true} headerBackTitle='afsd' component={InfoPage} />
-                            <Scene key='chatPage' hideNavBar={false} back={true} tintColor='black' component={ChatPage} />
+                            <Scene key='infoPage' hideNavBar={false} back={true} tintColor='black' renderBackButton={this.renderBackButton} component={InfoPage} />
+                            <Scene key='chatPage' hideNavBar={false} back={true} tintColor='black' renderBackButton={this.renderBackButton} component={ChatPage} />
                         </Scene>
 
                         {/* MatchingPage -> CategoryPage */}
                         <Scene key='matchingButton' title='매칭 등록' hideNavBar={true} icon={this.tabIcon}>
                             <Scene key='matchingPage' component={MatchingPage} />
-                            <Scene key='categoryPage' hideNavBar={false} back={true} tintColor='black' title='카테고리 선택' component={CategoryPage} />
+                            <Scene key='categoryPage' hideNavBar={false} back={true} tintColor='black' title='카테고리 선택' renderBackButton={this.renderBackButton} component={CategoryPage} />
                         </Scene>
 
                         {/* LoginPage -> MyPage */}
@@ -119,8 +132,8 @@ export default class MainRouter extends React.Component {
 
                             <Scene key='app' hideNavBar={true} initial={this.state.isLoggedIn}>
                                 <Scene key='myPage' component={MyPage} />
-                                <Scene key='editProfilePage' hideNavBar={false} back={true} tintColor='black' title='프로필 수정' component={EditProfilePage} />
-                                <Scene key='completedListPage' hideNavBar={false} back={true} tintColor='black' title='성사된 매칭' component={CompletedListPage} />
+                                <Scene key='editProfilePage' hideNavBar={false} back={true} tintColor='black' title='프로필 수정' renderBackButton={this.renderBackButton} component={EditProfilePage} />
+                                <Scene key='completedListPage' hideNavBar={false} back={true} tintColor='black' title='성사된 매칭' renderBackButton={this.renderBackButton} component={CompletedListPage} />
                             </Scene>
                         </Scene>
                     </Scene>
