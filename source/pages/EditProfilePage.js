@@ -132,7 +132,7 @@ export default class EditProfilePage extends React.Component {
                 {/* 수정 버튼 */}
                 <View style={{ flex: 1 }}>
                     <TouchableOpacity style={styles.buttonStyle} onPress={this.editPofile.bind(this)}>
-                        <Text style={styles.textStyle}>수정</Text>
+                        <Text style={styles.textStyle}>프로필 수정</Text>
                     </TouchableOpacity>
                 </View>
             </View >

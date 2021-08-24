@@ -35,10 +35,14 @@ export default class MyPage extends React.Component {
         })
     }
 
-    /* 로그아웃 함수 */
-    logout() {
-        USER_INFO.isLoggedIn = false;
-        firebase.auth().signOut();
+    /* 매칭 완료 리스트 페이지 이동 */
+    completedListPage() {
+        Actions.completedListPage();
+    }
+
+    /* 현재 등록 페이지 이동 */
+    currentPostPage() {
+        Actions.currentPostPage();
     }
 
     /* 프로필 수정 페이지 이동 */
@@ -46,10 +50,13 @@ export default class MyPage extends React.Component {
         Actions.editProfilePage();
     }
 
-    /* 매칭 완료 리스트 페이지 이동 */
-    completedListPage() {
-        Actions.completedListPage();
+    /* 로그아웃 함수 */
+    logout() {
+        USER_INFO.isLoggedIn = false;
+        firebase.auth().signOut();
     }
+
+
 
     render() {
         return (
@@ -98,7 +105,7 @@ export default class MyPage extends React.Component {
                             <Text style={styles.menuTextStyle}>채팅 목록</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.currentPostPage}>
                         <View style={styles.menuItemStyle}>
                             <Icon name='ios-document' size={22} color='#000' />
                             <Text style={styles.menuTextStyle}>현재 등록 게시물</Text>

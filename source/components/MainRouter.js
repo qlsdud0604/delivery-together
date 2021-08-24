@@ -15,8 +15,9 @@ import CategoryPage from '../pages/CategoryPage';
 
 import LoginPage from '../pages/LoginPage';
 import MyPage from '../pages/MyPage';
-import EditProfilePage from '../pages/EditProfilePage';
 import CompletedListPage from '../pages/CompletedListPage';
+import CurrentPostPage from '../pages/CurrentPostPage';
+import EditProfilePage from '../pages/EditProfilePage';
 import USER_INFO from '../components/UserInfo';
 
 if (firebase.apps.length === 0) {
@@ -132,14 +133,13 @@ export default class MainRouter extends React.Component {
 
                             <Scene key='app' hideNavBar={true} initial={this.state.isLoggedIn}>
                                 <Scene key='myPage' component={MyPage} />
-                                <Scene key='editProfilePage' hideNavBar={false} back={true} tintColor='black' title='프로필 수정' renderBackButton={this.renderBackButton} component={EditProfilePage} />
                                 <Scene key='completedListPage' hideNavBar={false} back={true} tintColor='black' title='성사된 매칭' renderBackButton={this.renderBackButton} component={CompletedListPage} />
+                                <Scene key='currentPostPage' hideNavBar={false} back={true} tintColor='black' title='현재 등록 게시물' renderBackButton={this.renderBackButton} component={CurrentPostPage} />
+                                <Scene key='categoryPage' hideNavBar={false} back={true} tintColor='black' title='카테고리 선택' renderBackButton={this.renderBackButton} component={CategoryPage} />
+                                <Scene key='editProfilePage' hideNavBar={false} back={true} tintColor='black' title='프로필 수정' renderBackButton={this.renderBackButton} component={EditProfilePage} />
                             </Scene>
                         </Scene>
                     </Scene>
-
-
-
                 </Scene>
             </Router>
         )
