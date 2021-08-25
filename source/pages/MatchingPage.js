@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import Toast from 'react-native-root-toast'
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
@@ -43,20 +44,6 @@ export default class MatchingPage extends React.Component {
 
     /* 양식 입력 확인 함수 */
     checkTextInput() {
-        // var query = firebase.database().ref('MatchingInfo').orderByKey();
-
-        // query.on('value', (snapshot) => {
-        //     const data = snapshot.val();
-        //     if ((USER_INFO.uid in data)) {
-        //         Toast.show('이미 등록된 게시물이 있습니다.', {
-        //             duration: Toast.durations.SHORT,
-        //             position: Toast.positions.CENTER,
-        //             shadow: false,
-        //             animation: true
-        //         });
-        //     } 
-        // })
-
         let state = this.state;
 
         if (USER_INFO.isLoggedIn === false)
@@ -74,28 +61,42 @@ export default class MatchingPage extends React.Component {
 
     /* 버튼 이벤트 정의 함수 */
     submit() {
-        var uid = USER_INFO.uid;
+        firebase.database().ref('MatchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value', snapshot => {
+            if (snapshot.exists()) {
+                Alert.alert('이미 등록된 게시물이 존재합니다.', '', [{ text: '확인', style: 'cancel', }]);
+                this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
+            } else {
+                var uid = USER_INFO.uid;
 
-        /* 파이어베이스에 사용자 정보 삽입 */
-        firebase.database().ref('MatchingInfo/' + uid).set(
-            {
-                latitude: this.state.latitude,
-                longitude: this.state.longitude,
-                title: this.state.title,
-                category: this.state.category,
-                money: this.state.money,
-                content: this.state.content,
-                email: USER_INFO.email,
-                uid: uid
+                /* 파이어베이스에 사용자 정보 삽입 */
+                firebase.database().ref('MatchingInfo/' + uid).set(
+                    {
+                        latitude: this.state.latitude,
+                        longitude: this.state.longitude,
+                        title: this.state.title,
+                        category: this.state.category,
+                        money: this.state.money,
+                        content: this.state.content,
+                        email: USER_INFO.email,
+                        uid: uid
+                    }
+                )
+
+                Toast.show('게시물이 등록되었습니다.', {
+                    duration: Toast.durations.SHORT,
+                    position: Toast.positions.CENTER,
+                    shadow: false,
+                    animation: true
+                });
+
+                MATCHING_INFO.title = '';
+                MATCHING_INFO.category = '카테고리 선택';
+                MATCHING_INFO.money = '';
+                MATCHING_INFO.content = '';
+
+                this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
             }
-        )
-
-        MATCHING_INFO.title = '';
-        MATCHING_INFO.category = '카테고리 선택';
-        MATCHING_INFO.money = '';
-        MATCHING_INFO.content = '';
-
-        this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
+        });
     }
 
     /* 양식 내용 유지 함수 */

@@ -43,6 +43,7 @@ export default class MyPage extends React.Component {
 
     /* 현재 등록 페이지 이동 */
     currentPostPage() {
+        /* 문제점 */
         // var query = firebase.database().ref('MatchingInfo').orderByKey();
 
         // query.on('value', (snapshot) => {
@@ -50,15 +51,17 @@ export default class MyPage extends React.Component {
         //     if ((USER_INFO.uid in data)) {
         //         Actions.currentPostPage();
         //     } else {
-        //         Toast.show('등록된 게시물이 없습니다.', {
-        //             duration: Toast.durations.SHORT,
-        //             position: Toast.positions.CENTER,
-        //             shadow: false,
-        //             animation: true
-        //         });
+        //         Alert.alert('등록된 게시물이 없습니다.', '', [{ text: '확인', style: 'cancel', }]);
         //     }
         // })
-        Actions.currentPostPage();
+
+        firebase.database().ref('MatchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value',snapshot => {
+            if (snapshot.exists()){
+                Actions.currentPostPage();
+            }else{
+                Alert.alert('등록된 게시물이 없습니다.', '', [{ text: '확인', style: 'cancel', }]);
+            }
+        });
     }
 
     /* 프로필 수정 페이지 이동 */
@@ -133,7 +136,13 @@ export default class MyPage extends React.Component {
                             <Text style={styles.menuTextStyle}>프로필 수정</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.logout()}>
+                    <TouchableOpacity onPress={() => Alert.alert(
+                        '로그아웃을 하시겠습니까?',
+                        '',
+                        [
+                            { text: '취소' },
+                            { text: '확인', onPress: () => this.logout() }
+                        ])}>
                         <View style={styles.menuItemStyle}>
                             <Icon name='ios-log-out' size={22} color='red' />
                             <Text style={[styles.menuTextStyle, { color: 'red' }]}>로그아웃</Text>

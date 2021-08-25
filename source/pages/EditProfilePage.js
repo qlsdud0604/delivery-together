@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, ImageBackground, TextInput, TouchableWithoutFeedback, Text, Keyboard, SafeAreaView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ImageBackground, TextInput, Alert, TouchableWithoutFeedback, Text, Keyboard, SafeAreaView } from 'react-native';
+import Toast from 'react-native-root-toast'
 
 import { Actions } from 'react-native-router-flux';
 import USER_INFO from "../components/UserInfo";
@@ -45,9 +46,17 @@ export default class EditProfilePage extends React.Component {
         })
     }
 
-    /* 이전 페이지 이동 */
-    myPage() {
-        Actions.pop();
+    /* 양식 입력 확인 함수 */
+    checkTextInput() {
+        if (this.state.inputText === '')
+            Alert.alert('양식을 모두 입력해주세요.', '', [{ text: '확인', style: 'cancel', }]);
+        else
+            Alert.alert('프로필을 수정하시겠습니까?',
+                '',
+                [
+                    { text: '취소' },
+                    { text: '확인', onPress: this.editPofile.bind(this) }
+                ])
     }
 
     /* firebase에 수정된 프로필 정보 갱신 */
@@ -59,6 +68,14 @@ export default class EditProfilePage extends React.Component {
 
             }
         )
+
+        Toast.show('프로필이 수정되었습니다.', {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.CENTER,
+            shadow: false,
+            animation: true
+        });
+
         Actions.pop();
     }
 
@@ -131,7 +148,7 @@ export default class EditProfilePage extends React.Component {
 
                 {/* 수정 버튼 */}
                 <View style={{ flex: 1 }}>
-                    <TouchableOpacity style={styles.buttonStyle} onPress={this.editPofile.bind(this)}>
+                    <TouchableOpacity style={styles.buttonStyle} onPress={this.checkTextInput.bind(this)}>
                         <Text style={styles.textStyle}>프로필 수정</Text>
                     </TouchableOpacity>
                 </View>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
-
+import Toast from 'react-native-root-toast'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
@@ -50,9 +50,9 @@ export default class CurrentPostPage extends React.Component {
     }
 
     /* CategoryPage 이동 함수 */
-    categoryPage() {
-        Actions.categoryPage();
-    }
+    // categoryPage() {
+    //     Actions.categoryPage();
+    // }
 
     /* 양식 입력 확인 함수 */
     checkTextInput() {
@@ -76,12 +76,24 @@ export default class CurrentPostPage extends React.Component {
         /* 파이어베이스에 사용자 정보 삽입 */
         firebase.database().ref('MatchingInfo/' + uid).update(
             {
-                title:this.state.title,
+                title: this.state.title,
                 category: this.state.category,
                 money: this.state.money,
                 content: this.state.content
             }
         )
+
+        Toast.show('게시물이 수정되었습니다.', {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.CENTER,
+            shadow: false,
+            animation: true
+        });
+
+        MATCHING_INFO.title = '';
+        MATCHING_INFO.category = '카테고리 선택';
+        MATCHING_INFO.money = '';
+        MATCHING_INFO.content = '';
 
         Actions.pop();
     }
@@ -92,6 +104,18 @@ export default class CurrentPostPage extends React.Component {
         firebase.database().ref('MatchingInfo/' + uid).remove();
 
         this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
+
+        Toast.show('게시물이 삭제되었습니다.', {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.CENTER,
+            shadow: false,
+            animation: true
+        });
+
+        MATCHING_INFO.title = '';
+        MATCHING_INFO.category = '카테고리 선택';
+        MATCHING_INFO.money = '';
+        MATCHING_INFO.content = '';
 
         Actions.pop();
     }
