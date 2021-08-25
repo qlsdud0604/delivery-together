@@ -43,6 +43,20 @@ export default class MatchingPage extends React.Component {
 
     /* 양식 입력 확인 함수 */
     checkTextInput() {
+        // var query = firebase.database().ref('MatchingInfo').orderByKey();
+
+        // query.on('value', (snapshot) => {
+        //     const data = snapshot.val();
+        //     if ((USER_INFO.uid in data)) {
+        //         Toast.show('이미 등록된 게시물이 있습니다.', {
+        //             duration: Toast.durations.SHORT,
+        //             position: Toast.positions.CENTER,
+        //             shadow: false,
+        //             animation: true
+        //         });
+        //     } 
+        // })
+
         let state = this.state;
 
         if (USER_INFO.isLoggedIn === false)
@@ -72,7 +86,7 @@ export default class MatchingPage extends React.Component {
                 money: this.state.money,
                 content: this.state.content,
                 email: USER_INFO.email,
-                uid:uid
+                uid: uid
             }
         )
 
@@ -89,12 +103,10 @@ export default class MatchingPage extends React.Component {
         MATCHING_INFO.title = value;
         this.setState({ title: MATCHING_INFO.title });
     }
-
     setMoney(value) {
         MATCHING_INFO.money = value;
         this.setState({ money: MATCHING_INFO.money });
     }
-
     setContent(value) {
         MATCHING_INFO.content = value;
         this.setState({ content: MATCHING_INFO.content });

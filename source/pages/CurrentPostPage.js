@@ -31,7 +31,6 @@ export default class CurrentPostPage extends React.Component {
             money: '',
             content: ''
         };
-        // MATCHING_INFO.matchingPage = this;
     }
 
     componentDidMount() {
@@ -48,8 +47,6 @@ export default class CurrentPostPage extends React.Component {
                 });
             }
         })
-
-
     }
 
     /* CategoryPage 이동 함수 */
@@ -79,19 +76,12 @@ export default class CurrentPostPage extends React.Component {
         /* 파이어베이스에 사용자 정보 삽입 */
         firebase.database().ref('MatchingInfo/' + uid).update(
             {
+                title:this.state.title,
+                category: this.state.category,
                 money: this.state.money,
-                content: this.state.content,
-                email: USER_INFO.email,
-                uid: uid
+                content: this.state.content
             }
         )
-
-        MATCHING_INFO.title = '';
-        MATCHING_INFO.category = '카테고리 선택';
-        MATCHING_INFO.money = '';
-        MATCHING_INFO.content = '';
-
-        this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
 
         Actions.pop();
     }
@@ -102,7 +92,7 @@ export default class CurrentPostPage extends React.Component {
         firebase.database().ref('MatchingInfo/' + uid).remove();
 
         this.setState({ title: '', category: '카테고리 선택', money: '', content: '' });
-        
+
         Actions.pop();
     }
 
@@ -111,12 +101,10 @@ export default class CurrentPostPage extends React.Component {
         MATCHING_INFO.title = value;
         this.setState({ title: MATCHING_INFO.title });
     }
-
     setMoney(value) {
         MATCHING_INFO.money = value;
         this.setState({ money: MATCHING_INFO.money });
     }
-
     setContent(value) {
         MATCHING_INFO.content = value;
         this.setState({ content: MATCHING_INFO.content });

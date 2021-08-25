@@ -8,7 +8,7 @@ export default class LoadingPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.textStyle}>Loading...</Text>
+                <Text style={styles.textStyle}>위치 정보를 불러오는 중입니다.</Text>
             </View>
         )
     }
