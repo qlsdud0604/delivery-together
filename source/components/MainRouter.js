@@ -114,25 +114,24 @@ export default class MainRouter extends React.Component {
 
                         {/* MapPage -> InfoPage -> ChatPage */}
                         <Scene key='mapButton' title='나의 주변' hideNavBar={true} icon={this.tabIcon}>
-                            <Scene key='mapPage' component={MapPage} />
+                            <Scene key='mapPage' hideNavBar={false} component={MapPage} />
                             <Scene key='infoPage' hideNavBar={false} back={true} tintColor='black' renderBackButton={this.renderBackButton} component={InfoPage} />
                             <Scene key='chatPage' hideNavBar={false} back={true} tintColor='black' renderBackButton={this.renderBackButton} component={ChatPage} />
                         </Scene>
 
                         {/* MatchingPage -> CategoryPage */}
-                        <Scene key='matchingButton' title='매칭 등록' hideNavBar={true} icon={this.tabIcon}>
+                        <Scene key='matchingButton' title='매칭 등록' hideNavBar={false} icon={this.tabIcon}>
                             <Scene key='matchingPage' component={MatchingPage} />
-                            <Scene key='categoryPage' hideNavBar={false} back={true} tintColor='black' title='카테고리 선택' renderBackButton={this.renderBackButton} component={CategoryPage} />
                         </Scene>
 
                         {/* LoginPage -> MyPage */}
                         <Scene key='myButton' title='마이페이지' icon={this.tabIcon} initial={true}>
                             <Scene key='root' hideNavBar={true} initial={!this.state.isLoggedIn} >
-                                <Scene key='loginPage' component={LoginPage} />
+                                <Scene key='loginPage' title='로그인' hideNavBar={false} component={LoginPage} />
                             </Scene>
 
                             <Scene key='app' hideNavBar={true} initial={this.state.isLoggedIn}>
-                                <Scene key='myPage' component={MyPage} />
+                                <Scene key='myPage' hideNavBar={false} component={MyPage} />
                                 <Scene key='completedListPage' hideNavBar={false} back={true} tintColor='black' title='성사된 매칭' renderBackButton={this.renderBackButton} component={CompletedListPage} />
                                 <Scene key='currentPostPage' hideNavBar={false} back={true} tintColor='black' title='현재 등록 게시물' renderBackButton={this.renderBackButton} component={CurrentPostPage} />
                                 <Scene key='categoryPage' hideNavBar={false} back={true} tintColor='black' title='카테고리 선택' renderBackButton={this.renderBackButton} component={CategoryPage} />

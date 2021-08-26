@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Avatar, Title, Caption } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Toast from 'react-native-root-toast'
 
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
@@ -43,22 +42,10 @@ export default class MyPage extends React.Component {
 
     /* 현재 등록 페이지 이동 */
     currentPostPage() {
-        /* 문제점 */
-        // var query = firebase.database().ref('MatchingInfo').orderByKey();
-
-        // query.on('value', (snapshot) => {
-        //     const data = snapshot.val();
-        //     if ((USER_INFO.uid in data)) {
-        //         Actions.currentPostPage();
-        //     } else {
-        //         Alert.alert('등록된 게시물이 없습니다.', '', [{ text: '확인', style: 'cancel', }]);
-        //     }
-        // })
-
-        firebase.database().ref('MatchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value',snapshot => {
-            if (snapshot.exists()){
+        firebase.database().ref('MatchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value', snapshot => {
+            if (snapshot.exists()) {
                 Actions.currentPostPage();
-            }else{
+            } else {
                 Alert.alert('등록된 게시물이 없습니다.', '', [{ text: '확인', style: 'cancel', }]);
             }
         });

@@ -63,21 +63,14 @@ export default class MapPage extends React.Component {
                             <TouchableOpacity>
                                 {marker.category === "한식" ? <Image source={require('../Images/한식.png')} style={{ width: 40, height: 40 }} /> :
                                     marker.category === "분식" ? <Image source={require('../Images/떡볶이.png')} style={{ width: 40, height: 40 }} /> :
-                                        marker.category === "카페, 디저트" ? <Image source={require('../Images/카페.png')} style={{ width: 40, height: 40 }} /> :
-                                            marker.category === "돈까스, 회, 일식" ? <Image source={require('../Images/초밥.png')} style={{ width: 40, height: 40 }} /> :
+                                        marker.category === "디저트" ? <Image source={require('../Images/카페.png')} style={{ width: 40, height: 40 }} /> :
+                                            marker.category === "일식" ? <Image source={require('../Images/초밥.png')} style={{ width: 40, height: 40 }} /> :
                                                 marker.category === "치킨" ? <Image source={require('../Images/치킨.png')} style={{ width: 40, height: 40 }} /> :
                                                     marker.category === "피자" ? <Image source={require('../Images/피자.png')} style={{ width: 40, height: 40 }} /> :
                                                         marker.category === "양식" ? <Image source={require('../Images/양식.png')} style={{ width: 40, height: 40 }} /> :
                                                             marker.category === "중식" ? <Image source={require('../Images/짜장면.png')} style={{ width: 40, height: 40 }} /> :
-                                                                marker.category === "족발, 보쌈" ? <Image source={require('../Images/족발.png')} style={{ width: 40, height: 40 }} /> :
-                                                                    marker.category === "야식" ? <Image source={require('../Images/야식.png')} style={{ width: 40, height: 40 }} /> :
-                                                                        marker.category === "찜, 탕" ? <Image source={require('../Images/탕.png')} style={{ width: 40, height: 40 }} /> :
-                                                                            <Image source={require('../Images/패스트푸드.png')} style={{ width: 40, height: 40 }} />}
+                                                                <Image source={require('../Images/야식.png')} style={{ width: 40, height: 40 }} />}
                             </TouchableOpacity>
-
-
-
-
                         </Marker>))
                 }
             </MapView>
