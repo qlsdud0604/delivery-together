@@ -40,6 +40,11 @@ export default class MyPage extends React.Component {
         Actions.completedListPage();
     }
 
+    /* 채팅 리스트 페이지 이동 */
+    chatListPage() {
+        Actions.chatListPage();
+    }
+
     /* 현재 등록 페이지 이동 */
     currentPostPage() {
         firebase.database().ref('MatchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value', snapshot => {
@@ -105,7 +110,7 @@ export default class MyPage extends React.Component {
                 {/* 메뉴 */}
                 <View style={styles.menuStyle}>
 
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={this.chatListPage}>
                         <View style={styles.menuItemStyle}>
                             <Icon name='ios-chatbubble-ellipses' size={22} color='#000' />
                             <Text style={styles.menuTextStyle}>채팅 목록</Text>
