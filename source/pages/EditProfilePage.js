@@ -30,14 +30,13 @@ export default class EditProfilePage extends React.Component {
 
             name: USER_INFO.name,
             photoURL: USER_INFO.photoURL,
-            email: USER_INFO.email,
-            phoneNumber: USER_INFO.phoneNumber
+            email: USER_INFO.email
         };
     }
 
     /* 수정된 프로필 정보로 갱신 */
     componentDidMount() {
-        var query = firebase.database().ref('UsersInfo').orderByKey();
+        var query = firebase.database().ref('userInfo').orderByKey();
 
         query.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -61,13 +60,16 @@ export default class EditProfilePage extends React.Component {
 
     /* firebase에 수정된 프로필 정보 갱신 */
     editPofile() {
-        firebase.database().ref('UsersInfo/' + USER_INFO.uid).update(
+        firebase.database().ref('userInfo/' + USER_INFO.uid).update(
             {
                 name: this.state.inputText,
                 profileImage: this.state.photoURL
 
             }
         )
+
+        USER_INFO.name = this.state.inputText;
+        USER_INFO.photoURL = this.state.photoURL;
 
         Toast.show('프로필이 수정되었습니다.', {
             duration: Toast.durations.SHORT,

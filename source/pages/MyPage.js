@@ -19,14 +19,12 @@ export default class MyPage extends React.Component {
 
         this.state = {
             name: USER_INFO.name,
-            email: USER_INFO.email,
-            photoURL: USER_INFO.photoURL,
-            phoneNumber: USER_INFO.phoneNumber
+            photoURL: USER_INFO.photoURL
         }
     }
 
     componentDidMount() {
-        var query = firebase.database().ref('UsersInfo').orderByKey();
+        var query = firebase.database().ref('userInfo').orderByKey();
 
         query.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -47,7 +45,7 @@ export default class MyPage extends React.Component {
 
     /* 현재 등록 페이지 이동 */
     currentPostPage() {
-        firebase.database().ref('MatchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value', snapshot => {
+        firebase.database().ref('matchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value', snapshot => {
             if (snapshot.exists()) {
                 Actions.currentPostPage();
             } else {
@@ -85,7 +83,6 @@ export default class MyPage extends React.Component {
                                 marginTop: 15,
                                 marginBottom: 5
                             }]}>{this.state.name}</Title>
-                            <Caption style={styles.emailStyle}>{this.state.email}</Caption>
                         </View>
                     </View>
                 </View>

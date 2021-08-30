@@ -23,7 +23,7 @@ export default class CompletedListPage extends React.Component {
 
     /* 파이어베이스로부터 성사된 매칭 데이터 로드 */
     componentDidMount() {
-        var query = firebase.database().ref('UsersInfo/' + USER_INFO.uid + '/CompletedMatching').orderByKey();
+        var query = firebase.database().ref('userInfo/' + USER_INFO.uid + '/completedMatching').orderByKey();
 
         query.on('value', (snapshot) => {
             const data = snapshot.val();

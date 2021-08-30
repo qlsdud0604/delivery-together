@@ -13,25 +13,32 @@ export default class InfoPage extends React.Component {
         if (USER_INFO.isLoggedIn === false)
             Alert.alert('로그인이 필요합니다.', '', [{ text: '확인', style: 'cancel' }]);
         else
-            Actions.chatPage({ chatRoom: this.props.uid + USER_INFO.uid, title: '채팅' });
+            Actions.chatPage({ chatRoom: this.props.postUid + USER_INFO.uid, title: '채팅' });
     }
 
     render() {
         return (
             <View style={styles.container}>
-                {/* 제목, 카테고리, 가격 */}
-                <View style={styles.titleStyle}>
-                    <View style={{ alignItems: 'flex-start' }}>
-                        <Title style={{ fontSize: 18 }}>{this.props.postTitle}</Title>
-                        <Caption style={{ fontSize: 13 }} >{this.props.postEmail}</Caption>
+                <View style={{ flex: 9 }}>
+                    {/* 제목, 카테고리, 가격 */}
+                    <View style={styles.titleStyle}>
+                        <View style={{ alignItems: 'flex-start' }}>
+                            <Title style={{ fontSize: 20 }}>{this.props.postTitle}</Title>
+                            <Title style={{ fontSize: 15 }} >작성자 : {this.props.postName}</Title>
+
+                        </View>
+                    </View>
+
+                    {/* 카테고리, 최대 지불가격 */}
+                    <View style={styles.categoryStyle}>
                         <Caption style={{ fontSize: 13 }} >카테고리 : {this.props.postCategory}</Caption>
                         <Caption style={{ fontSize: 13 }}>최대 지불가격 : {this.props.postMoney}원</Caption>
                     </View>
-                </View>
 
-                {/* 내용 */}
-                <View style={styles.contentStyle}>
-                    <Text style={{ fontSize: 15 }}>{this.props.postContent}</Text>
+                    {/* 내용 */}
+                    <View style={styles.contentStyle}>
+                        <Text style={{ fontSize: 17 }}>{this.props.postContent}</Text>
+                    </View>
                 </View>
 
                 {/* 매칭 신청 버튼 */}
@@ -53,21 +60,29 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     titleStyle: {
-        flex: 4.5,
+        flex: 3,
         flexDirection: 'row',
         width: '100%',
         alignItems: 'flex-end',
         paddingLeft: 20,
-        paddingBottom: 20
+        paddingBottom: 10,
+        borderBottomWidth: 0.5,
+        borderColor: '#ddd',
+        width: 380
+    },
+    categoryStyle: {
+        flex: 1,
+        width: 380,
+        paddingLeft: 20,
+        borderBottomWidth: 0.5,
+        borderColor: '#ddd',
+        justifyContent: 'center'
     },
     contentStyle: {
-        flex: 4.5,
-        borderTopWidth: 0.5,
-        borderColor: '#ddd',
-        width: '100%',
+        flex: 5,
+        width: 380,
         paddingLeft: 20,
         paddingTop: 20
-
     },
     buttonStyle: {
         backgroundColor: "#000",

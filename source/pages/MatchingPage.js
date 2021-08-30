@@ -50,15 +50,14 @@ export default class MatchingPage extends React.Component {
 
     /* 버튼 이벤트 정의 함수 */
     submit() {
-        firebase.database().ref('MatchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value', snapshot => {
+        firebase.database().ref('matchingInfo').orderByKey().equalTo(USER_INFO.uid).once('value', snapshot => {
             if (snapshot.exists()) {
                 Alert.alert('이미 등록된 게시물이 존재합니다.', '', [{ text: '확인', style: 'cancel', }]);
                 this.setState({ title: '', category: '', money: '', content: '' });
             } else {
-                var uid = USER_INFO.uid;
 
                 /* 파이어베이스에 사용자 정보 삽입 */
-                firebase.database().ref('MatchingInfo/' + uid).set(
+                firebase.database().ref('matchingInfo/' + USER_INFO.uid).set(
                     {
                         latitude: MATCHING_INFO.latitude,
                         longitude: MATCHING_INFO.longitude,
@@ -66,8 +65,8 @@ export default class MatchingPage extends React.Component {
                         category: this.state.category,
                         money: this.state.money,
                         content: this.state.content,
-                        email: USER_INFO.email,
-                        uid: uid
+                        name: USER_INFO.name,
+                        uid: USER_INFO.uid
                     }
                 )
 
@@ -186,16 +185,16 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     buttonStyle: {
-        backgroundColor: "#000",
+        backgroundColor: '#000',
         width: 350,
         borderRadius: 25,
         marginVertical: 5,
         paddingVertical: 12
     },
     buttonTextStyle: {
-        color: "#fff",
+        color: '#fff',
         fontSize: 15,
-        fontWeight: "500",
-        textAlign: "center"
+        fontWeight: '500',
+        textAlign: 'center'
     }
 });

@@ -34,7 +34,7 @@ export default class MatchingPage extends React.Component {
     }
 
     componentDidMount() {
-        var query = firebase.database().ref('MatchingInfo').orderByKey();
+        var query = firebase.database().ref('matchingInfo').orderByKey();
 
         query.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -67,7 +67,7 @@ export default class MatchingPage extends React.Component {
         var uid = USER_INFO.uid;
 
         /* 파이어베이스에 사용자 정보 삽입 */
-        firebase.database().ref('MatchingInfo/' + uid).update(
+        firebase.database().ref('matchingInfo/' + uid).update(
             {
                 title: this.state.title,
                 category: this.state.category,
@@ -89,7 +89,7 @@ export default class MatchingPage extends React.Component {
     /* 현재 게시물 삭제 */
     submitDeletion() {
         var uid = USER_INFO.uid;
-        firebase.database().ref('MatchingInfo/' + uid).remove();
+        firebase.database().ref('matchingInfo/' + uid).remove();
 
         this.setState({ title: '', category: '', money: '', content: '' });
 

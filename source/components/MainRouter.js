@@ -11,7 +11,6 @@ import InfoPage from '../pages/InfoPage';
 import ChatPage from '../pages/ChatPage';
 
 import MatchingPage from '../pages/MatchingPage';
-import CategoryPage from '../pages/CategoryPage';
 
 import LoginPage from '../pages/LoginPage';
 import MyPage from '../pages/MyPage';
@@ -25,7 +24,6 @@ if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
 }
 
-
 export default class MainRouter extends React.Component {
 
     constructor(props) {
@@ -38,17 +36,22 @@ export default class MainRouter extends React.Component {
 
     componentDidMount() {
         this.checkIfLoggedIn();
+
+        var query = firebase.database().ref('userInfo').orderByKey();
+
+        query.on('value', (snapshot) => {
+            const data = snapshot.val();
+
+            USER_INFO.name = data[USER_INFO.uid].name;
+            USER_INFO.photoURL = data[USER_INFO.uid].profileImage;
+        })
     }
 
     checkIfLoggedIn = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 USER_INFO.isLoggedIn = true;
-                USER_INFO.name = user.providerData[0].displayName;
-                USER_INFO.email = user.providerData[0].email;
                 USER_INFO.uid = user.uid;
-                USER_INFO.photoURL = user.providerData[0].photoURL;
-                USER_INFO.phoneNumber = user.providerData[0].phoneNumber;
                 this.setState({ isLoggedIn: true });
             } else {
                 this.setState({ isLoggedIn: false });
@@ -101,7 +104,6 @@ export default class MainRouter extends React.Component {
     };
 
 
-
     render() {
         return (
             <Router>
@@ -120,7 +122,7 @@ export default class MainRouter extends React.Component {
                             <Scene key='chatPage' hideNavBar={false} back={true} tintColor='black' renderBackButton={this.renderBackButton} component={ChatPage} />
                         </Scene>
 
-                        {/* MatchingPage -> CategoryPage */}
+                        {/* MatchingPage */}
                         <Scene key='matchingButton' title='매칭 등록' hideNavBar={false} icon={this.tabIcon}>
                             <Scene key='matchingPage' component={MatchingPage} />
                         </Scene>
@@ -137,7 +139,6 @@ export default class MainRouter extends React.Component {
                                 <Scene key='chatListPage' hideNavBar={false} back={true} tintColor='black' title='채팅 목록' renderBackButton={this.renderBackButton} component={ChatListPage} />
                                 <Scene key='chatPage' hideNavBar={false} back={true} tintColor='black' renderBackButton={this.renderBackButton} component={ChatPage} />
                                 <Scene key='currentPostPage' hideNavBar={false} back={true} tintColor='black' title='현재 등록 게시물' renderBackButton={this.renderBackButton} component={CurrentPostPage} />
-                                <Scene key='categoryPage' hideNavBar={false} back={true} tintColor='black' title='카테고리 선택' renderBackButton={this.renderBackButton} component={CategoryPage} />
                                 <Scene key='editProfilePage' hideNavBar={false} back={true} tintColor='black' title='프로필 수정' renderBackButton={this.renderBackButton} component={EditProfilePage} />
                             </Scene>
                         </Scene>

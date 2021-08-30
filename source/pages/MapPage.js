@@ -22,7 +22,7 @@ export default class MapPage extends React.Component {
     }
 
     componentDidMount() {
-        var query = firebase.database().ref('MatchingInfo').orderByKey();
+        var query = firebase.database().ref('matchingInfo').orderByKey();
 
         query.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -31,13 +31,13 @@ export default class MapPage extends React.Component {
     }
 
     componentWillUnmount() {
-        if (firebase.database().ref('MatchingInfo'))
-            firebase.database().ref('MatchingInfo').off();
+        if (firebase.database().ref('matchingInfo'))
+            firebase.database().ref('matchingInfo').off();
     }
 
     /* InfoPage 이동 함수 */
-    infoPage(title, email, category, money, content, uid) {
-        Actions.infoPage({ postTitle: title, postEmail: email, postCategory: category, postMoney: money, postContent: content, uid: uid, title: '매칭 상대 확인' });
+    infoPage(title, name, category, money, content, uid) {
+        Actions.infoPage({ postTitle: title, postName: name, postCategory: category, postMoney: money, postContent: content, postUid: uid, title: '매칭 상대 확인' });
     }
 
     render() {
@@ -59,7 +59,7 @@ export default class MapPage extends React.Component {
                                 longitude: marker.longitude
                             }}
 
-                            onPress={() => this.infoPage(marker.title, marker.email, marker.category, marker.money, marker.content, marker.uid)}>
+                            onPress={() => this.infoPage(marker.title, marker.name, marker.category, marker.money, marker.content, marker.uid)}>
                             <TouchableOpacity>
                                 {marker.category === "한식" ? <Image source={require('../Images/한식.png')} style={{ width: 40, height: 40 }} /> :
                                     marker.category === "분식" ? <Image source={require('../Images/떡볶이.png')} style={{ width: 40, height: 40 }} /> :

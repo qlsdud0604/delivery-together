@@ -34,7 +34,7 @@ export default class ChatPage extends React.Component {
             });
         });
 
-        var query = firebase.database().ref('UsersInfo').orderByKey();
+        var query = firebase.database().ref('userInfo').orderByKey();
 
         query.on('value', (snapshot) => {
             const data = snapshot.val();
@@ -44,8 +44,8 @@ export default class ChatPage extends React.Component {
     }
 
     componentWillUnmount() {
-        if (firebase.database().ref('Messages/' + this.props.chatRoom))
-            firebase.database().ref('Messages/' + this.props.chatRoom).off();
+        if (firebase.database().ref('messages/' + this.props.chatRoom))
+            firebase.database().ref('messages/' + this.props.chatRoom).off();
     }
 
     /* 메시지 전송 */
@@ -53,7 +53,7 @@ export default class ChatPage extends React.Component {
         let today = new Date();
         let timestamp = today.toISOString();
 
-        firebase.database().ref('Messages/' + this.props.chatRoom).push({
+        firebase.database().ref('messages/' + this.props.chatRoom).push({
             _id: message[0]._id,
             createdAt: timestamp,
             text: message[0].text,
@@ -63,7 +63,7 @@ export default class ChatPage extends React.Component {
 
     /* 메시지 로드*/
     loadMessages(callback) {
-        firebase.database().ref('Messages/' + this.props.chatRoom).off();
+        firebase.database().ref('messages/' + this.props.chatRoom).off();
 
         const onReceive = data => {
             const message = data.val();
@@ -75,7 +75,7 @@ export default class ChatPage extends React.Component {
             });
         };
 
-        firebase.database().ref('Messages/' + this.props.chatRoom).orderByChild('createdAt').limitToLast(35).on('child_added', onReceive);
+        firebase.database().ref('messages/' + this.props.chatRoom).orderByChild('createdAt').limitToLast(35).on('child_added', onReceive);
     }
 
     /* 말풍선 커스텀 */

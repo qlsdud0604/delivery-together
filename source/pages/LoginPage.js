@@ -38,17 +38,15 @@ export default class LoginPage extends React.Component {
 
                 firebase.auth().signInWithCredential(credential).then(function (result) {
 
-                    var query = firebase.database().ref('UsersInfo').orderByKey();
+                    var query = firebase.database().ref('userInfo').orderByKey();
 
                     query.on('value', (snapshot) => {
                         const data = snapshot.val();
 
                         if (!(result.user.uid in data)) {
-                            firebase.database().ref('UsersInfo/' + result.user.uid).set({
-                                email: result.user.email,
+                            firebase.database().ref('userInfo/' + result.user.uid).set({
                                 profileImage: result.user.photoURL,
                                 name: result.user.displayName,
-                                phoneNumber: result.user.phoneNumber,
                                 createdAt: Date.now()
 
                             })

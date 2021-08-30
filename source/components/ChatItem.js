@@ -14,7 +14,6 @@ if (firebase.apps.length === 0)
 
 export default function ChatItem({ data }) {
 
-
     function chatPage() {
         Actions.chatPage({ chatRoom: data[4], title: '채팅' })
     }
@@ -23,14 +22,14 @@ export default function ChatItem({ data }) {
     return (
         <View >
             <TouchableOpacity style={styles.itemStyle} onPress={chatPage}>
-                <Image source={{ uri: data[1] }} style={{ width: 60, height: 60, borderRadius: 30, marginTop: 10, marginRight: 20 }} />
+                <Image source={{ uri: data.url }} style={{ width: 60, height: 60, borderRadius: 30, marginTop: 10, marginRight: 20 }} />
 
                 <View style={{ justifyContent: 'center', flex: 1 }}>
-                    <Title style={{ fontSize: 18 }}>{data[0]}</Title>
-                    <Caption style={{ fontSize: 13 }} >마지막 대화 : {data[3]}</Caption>
+                    <Title style={{ fontSize: 18 }}>{data.name}</Title>
+                    <Caption style={{ fontSize: 13 }} >마지막 대화 : {data.lastText}</Caption>
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'center', marginRight: 10 }}>
-                    <Text style={{ color: 'green' }}>{calDay(data[4])}</Text>
+                    <Text style={{ color: 'green' }}>{calDay(data.lastTextTime)}</Text>
                 </View>
             </TouchableOpacity>
         </View>
