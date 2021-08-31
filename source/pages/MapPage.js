@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
 import firebaseConfig from '../config/FirebaseConfig';
 import MATCHING_INFO from '../components/MatchingInfo';
+import USER_INFO from '../components/UserInfo';
 
 /* 파이어베이스 연결 */
 if (firebase.apps.length === 0)
@@ -37,7 +38,10 @@ export default class MapPage extends React.Component {
 
     /* InfoPage 이동 함수 */
     infoPage(title, name, photoURL, category, money, content, uid) {
-        Actions.infoPage({ postTitle: title, postName: name, postPhotoURL: photoURL, postCategory: category, postMoney: money, postContent: content, postUid: uid, title: '매칭 상대 확인' });
+        if (uid == USER_INFO.uid)
+            Alert.alert('본인이 등록한 게시물은 매칭 신청이 불가합니다.', '', [{ text: '확인', style: 'cancel', }]);
+        else
+            Actions.infoPage({ postTitle: title, postName: name, postPhotoURL: photoURL, postCategory: category, postMoney: money, postContent: content, postUid: uid, title: '매칭 상대 확인' });
     }
 
     render() {
