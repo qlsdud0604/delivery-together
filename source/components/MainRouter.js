@@ -36,15 +36,6 @@ export default class MainRouter extends React.Component {
 
     componentDidMount() {
         this.checkIfLoggedIn();
-
-        var query = firebase.database().ref('userInfo').orderByKey();
-
-        query.on('value', (snapshot) => {
-            const data = snapshot.val();
-
-            USER_INFO.name = data[USER_INFO.uid].name;
-            USER_INFO.photoURL = data[USER_INFO.uid].profileImage;
-        })
     }
 
     checkIfLoggedIn = () => {
@@ -52,6 +43,9 @@ export default class MainRouter extends React.Component {
             if (user) {
                 USER_INFO.isLoggedIn = true;
                 USER_INFO.uid = user.uid;
+                USER_INFO.name = user.providerData[0].displayName;
+                USER_INFO.photoURL = user.providerData[0].photoURL;
+
                 this.setState({ isLoggedIn: true });
             } else {
                 this.setState({ isLoggedIn: false });

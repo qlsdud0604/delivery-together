@@ -36,8 +36,8 @@ export default class MapPage extends React.Component {
     }
 
     /* InfoPage 이동 함수 */
-    infoPage(title, name, category, money, content, uid) {
-        Actions.infoPage({ postTitle: title, postName: name, postCategory: category, postMoney: money, postContent: content, postUid: uid, title: '매칭 상대 확인' });
+    infoPage(title, name, photoURL, category, money, content, uid) {
+        Actions.infoPage({ postTitle: title, postName: name, postPhotoURL: photoURL, postCategory: category, postMoney: money, postContent: content, postUid: uid, title: '매칭 상대 확인' });
     }
 
     render() {
@@ -59,7 +59,7 @@ export default class MapPage extends React.Component {
                                 longitude: marker.longitude
                             }}
 
-                            onPress={() => this.infoPage(marker.title, marker.name, marker.category, marker.money, marker.content, marker.uid)}>
+                            onPress={() => this.infoPage(marker.title, marker.name, marker.photoURL, marker.category, marker.money, marker.content, marker.uid)}>
                             <TouchableOpacity>
                                 {marker.category === "한식" ? <Image source={require('../Images/한식.png')} style={{ width: 40, height: 40 }} /> :
                                     marker.category === "분식" ? <Image source={require('../Images/떡볶이.png')} style={{ width: 40, height: 40 }} /> :

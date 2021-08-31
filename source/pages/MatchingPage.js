@@ -29,8 +29,20 @@ export default class MatchingPage extends React.Component {
             title: '',
             category: '',
             money: '',
-            content: ''
+            content: '',
+            name:USER_INFO.name,
+            photoURL: USER_INFO.photoURL
         };
+    }
+
+    componentDidMount() {
+        var query = firebase.database().ref('userInfo').orderByKey();
+
+        query.on('value', (snapshot) => {
+            const data = snapshot.val();
+            this.setState({ name: data[USER_INFO.uid].name });
+            this.setState({ photoURL: data[USER_INFO.uid].profileImage });
+        })
     }
 
     /* 양식 입력 확인 함수 */
@@ -65,7 +77,8 @@ export default class MatchingPage extends React.Component {
                         category: this.state.category,
                         money: this.state.money,
                         content: this.state.content,
-                        name: USER_INFO.name,
+                        name: this.state.name,
+                        photoURL:this.state.photoURL,
                         uid: USER_INFO.uid
                     }
                 )

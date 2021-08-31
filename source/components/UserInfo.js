@@ -2,6 +2,5 @@ module.exports = {
     isLoggedIn: false,
     name: '',
     uid: '',
-    photoURL: '',
-    phoneNumber: '',
+    photoURL: ''
 };

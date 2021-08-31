@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
-import { Title, Caption } from 'react-native-paper';
+import { Avatar, Title, Caption } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 
 import USER_INFO from '../components/UserInfo';
@@ -22,10 +22,13 @@ export default class InfoPage extends React.Component {
                 <View style={{ flex: 9 }}>
                     {/* 제목, 카테고리, 가격 */}
                     <View style={styles.titleStyle}>
-                        <View style={{ alignItems: 'flex-start' }}>
-                            <Title style={{ fontSize: 20 }}>{this.props.postTitle}</Title>
-                            <Title style={{ fontSize: 15 }} >작성자 : {this.props.postName}</Title>
+                        <Avatar.Image
+                            source={{ uri: this.props.postPhotoURL }}
+                            size={55} />
 
+                        <View>
+                            <Title style={{ marginLeft: 15, fontSize: 20 }}>{this.props.postTitle}</Title>
+                            <Caption style={{ marginLeft: 15, fontSize: 15 }} >작성자 : {this.props.postName}</Caption>
                         </View>
                     </View>
 

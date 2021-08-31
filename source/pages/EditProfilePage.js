@@ -29,8 +29,7 @@ export default class EditProfilePage extends React.Component {
             inputText: '',
 
             name: USER_INFO.name,
-            photoURL: USER_INFO.photoURL,
-            email: USER_INFO.email
+            photoURL: USER_INFO.photoURL
         };
     }
 
@@ -67,9 +66,6 @@ export default class EditProfilePage extends React.Component {
 
             }
         )
-
-        USER_INFO.name = this.state.inputText;
-        USER_INFO.photoURL = this.state.photoURL;
 
         Toast.show('프로필이 수정되었습니다.', {
             duration: Toast.durations.SHORT,
