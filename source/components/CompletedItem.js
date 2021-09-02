@@ -1,12 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
-import { Avatar, Caption, Title } from "react-native-paper";
+import { Caption, Title } from "react-native-paper";
 
 import firebaseConfig from '../config/FirebaseConfig';
 import firebase from 'firebase';
-
-
-import { Actions } from 'react-native-router-flux';
 
 
 /* 파이어베이스 연결 */
